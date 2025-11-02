@@ -1,0 +1,271 @@
+/**
+ * @file SkillsSection component for the portfolio website.
+ * Displays categorized skills with modern animations and interactive design.
+ */
+'use client'
+
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
+import { Code, Database, Wrench, Globe, Terminal, Cpu } from 'lucide-react'
+import * as loggerModule from '@/logger'
+
+interface Skill {
+  name: string
+  proficiency?: 'beginner' | 'intermediate' | 'advanced' | 'expert'
+}
+
+interface SkillCategory {
+  id: string
+  title: string
+  skills: Skill[]
+  icon: React.ComponentType<{ size?: number; className?: string; style?: React.CSSProperties }>
+  color: string
+}
+
+interface SkillsSectionProps {
+  skillCategories?: SkillCategory[]
+}
+
+const defaultSkillCategories: SkillCategory[] = [
+  {
+    id: 'languages',
+    title: 'Languages',
+    icon: Code,
+    color: '#C778DD',
+    skills: [
+      { name: 'TypeScript', proficiency: 'expert' },
+      { name: 'Python', proficiency: 'expert' },
+      { name: 'JavaScript', proficiency: 'expert' },
+      { name: 'Lua', proficiency: 'intermediate' }
+    ],
+  },
+  {
+    id: 'databases',
+    title: 'Databases',
+    icon: Database,
+    color: '#61DAFB',
+    skills: [
+      { name: 'PostgreSQL', proficiency: 'advanced' },
+      { name: 'MongoDB', proficiency: 'advanced' },
+      { name: 'SQLite', proficiency: 'intermediate' }
+    ],
+  },
+  {
+    id: 'frameworks',
+    title: 'Frameworks',
+    icon: Globe,
+    color: '#98D8C8',
+    skills: [
+      { name: 'React', proficiency: 'expert' },
+      { name: 'Next.js', proficiency: 'expert' },
+      { name: 'Flask', proficiency: 'advanced' },
+      { name: 'Express.js', proficiency: 'advanced' },
+      { name: 'Vue', proficiency: 'intermediate' },
+      { name: 'Discord.js', proficiency: 'advanced' }
+    ],
+  },
+  {
+    id: 'tools',
+    title: 'Tools',
+    icon: Wrench,
+    color: '#F7DF1E',
+    skills: [
+      { name: 'Git', proficiency: 'expert' },
+      { name: 'VSCode', proficiency: 'expert' },
+      { name: 'Docker', proficiency: 'advanced' },
+      { name: 'Linux', proficiency: 'advanced' },
+      { name: 'Figma', proficiency: 'intermediate' },
+      { name: 'Neovim', proficiency: 'intermediate' }
+    ],
+  },
+  {
+    id: 'other',
+    title: 'Technologies',
+    icon: Cpu,
+    color: '#FF6B6B',
+    skills: [
+      { name: 'REST APIs', proficiency: 'expert' },
+      { name: 'GraphQL', proficiency: 'intermediate' },
+      { name: 'WebSockets', proficiency: 'advanced' },
+      { name: 'CSS/SCSS', proficiency: 'expert' },
+      { name: 'HTML5', proficiency: 'expert' },
+      { name: 'TailwindCSS', proficiency: 'expert' }
+    ],
+  },
+]
+
+const SkillsSection: React.FC<SkillsSectionProps> = ({ skillCategories = defaultSkillCategories }) => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" })
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  }
+
+  const categoryVariants = {
+    hidden: { y: 50, opacity: 0 },
+    visible: { y: 0, opacity: 1 }
+  }
+
+  const skillVariants = {
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: { scale: 1, opacity: 1 }
+  }
+
+  const getProficiencyColor = (proficiency?: string) => {
+    switch (proficiency) {
+      case 'expert': return 'bg-green-500'
+      case 'advanced': return 'bg-blue-500'
+      case 'intermediate': return 'bg-yellow-500'
+      case 'beginner': return 'bg-gray-500'
+      default: return 'bg-primary'
+    }
+  }
+
+  const getProficiencyWidth = (proficiency?: string) => {
+    switch (proficiency) {
+      case 'expert': return 'w-full'
+      case 'advanced': return 'w-4/5'
+      case 'intermediate': return 'w-3/5'
+      case 'beginner': return 'w-2/5'
+      default: return 'w-3/5'
+    }
+  }
+
+  return (
+    <section ref={sectionRef} className="py-20 bg-gradient-to-b from-darker to-dark relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+      </div>
+
+      <div className="container mx-auto px-4 md:px-8 relative z-10">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
+          {/* Section Header */}
+          <motion.div variants={categoryVariants} className="text-center mb-16">
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <motion.div
+                initial={{ scaleX: 0 }}
+                animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="w-16 h-px bg-primary"
+              />
+              <h2 className="text-3xl md:text-4xl font-bold text-white">
+                <span className="text-primary">#</span>skills
+              </h2>
+              <motion.div
+                initial={{ scaleX: 0 }}
+                animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="w-16 h-px bg-primary"
+              />
+            </div>
+            <p className="text-secondary text-lg max-w-2xl mx-auto">
+              My technical toolkit and expertise across different technologies
+            </p>
+          </motion.div>
+
+          {/* Skills Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {skillCategories.map((category, categoryIndex) => {
+              const Icon = category.icon
+              return (
+                <motion.div
+                  key={category.id}
+                  variants={categoryVariants}
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  className="bg-darker/50 backdrop-blur-sm border border-secondary/20 rounded-xl p-6 hover:border-primary/50 transition-all duration-300"
+                >
+                  {/* Category Header */}
+                  <div className="flex items-center gap-4 mb-6">
+                    <div 
+                      className="w-12 h-12 rounded-lg flex items-center justify-center"
+                      style={{ backgroundColor: `${category.color}20` }}
+                    >
+                      <Icon size={24} style={{ color: category.color }} />
+                    </div>
+                    <h3 className="text-xl font-semibold text-white">{category.title}</h3>
+                  </div>
+
+                  {/* Skills List */}
+                  <div className="space-y-4">
+                    {category.skills.map((skill, skillIndex) => (
+                      <motion.div
+                        key={skill.name}
+                        variants={skillVariants}
+                        className="group"
+                      >
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-secondary group-hover:text-white transition-colors duration-200">
+                            {skill.name}
+                          </span>
+                          {skill.proficiency && (
+                            <span className="text-xs text-secondary capitalize">
+                              {skill.proficiency}
+                            </span>
+                          )}
+                        </div>
+                        
+                        {/* Proficiency Bar */}
+                        <div className="w-full bg-secondary/10 rounded-full h-2 overflow-hidden">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={isInView ? { width: 'var(--target-width)' } : { width: 0 }}
+                            transition={{ 
+                              duration: 1, 
+                              delay: categoryIndex * 0.2 + skillIndex * 0.1,
+                              ease: "easeOut"
+                            }}
+                            className={`h-full rounded-full ${getProficiencyColor(skill.proficiency)} ${getProficiencyWidth(skill.proficiency)}`}
+                            style={{ '--target-width': getProficiencyWidth(skill.proficiency).replace('w-', '').replace('full', '100%').replace('4/5', '80%').replace('3/5', '60%').replace('2/5', '40%') } as any}
+                          />
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              )
+            })}
+          </div>
+
+          {/* Summary Stats */}
+          <motion.div 
+            variants={categoryVariants}
+            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
+          >
+            <div className="text-center">
+              <div className="text-3xl font-bold text-primary mb-2">15+</div>
+              <div className="text-secondary text-sm">Technologies</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-accent mb-2">5</div>
+              <div className="text-secondary text-sm">Categories</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-white mb-2">3+</div>
+              <div className="text-secondary text-sm">Years Experience</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-primary mb-2">50+</div>
+              <div className="text-secondary text-sm">Projects Built</div>
+            </div>
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
+export default SkillsSection 

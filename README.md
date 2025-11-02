@@ -1,8 +1,16 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Personal Portfolio Website
 
-## Getting Started
+This is a personal portfolio website for Nilesh, a Software Developer and AI/ML Engineer.
 
-First, run the development server:
+Built with:
+- Next.js (React Framework)
+- TypeScript
+- Tailwind CSS
+- Anime.js (for animations)
+
+## Development
+
+To run the development server:
 
 ```bash
 npm run dev
@@ -15,10 +23,6 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More
 

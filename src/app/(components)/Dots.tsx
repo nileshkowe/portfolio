@@ -1,0 +1,87 @@
+/**
+ * @file Dots.tsx
+ * @description Reusable Dots pattern component based on Figma component 23:751.
+ * Renders a 5x5 grid of small ellipses.
+ */
+import React, { useEffect, ReactElement } from 'react';
+import * as loggerModule from '@/logger';
+
+interface DotProps {
+  cx: string;
+  cy: string;
+  r?: string;
+  fill?: string;
+}
+
+const Dot: React.FC<DotProps> = ({ cx, cy, r = "2", fill = "#ABB2BF" }) => (
+  <ellipse cx={cx} cy={cy} rx={r} ry={r} fill={fill} />
+);
+
+interface DotsProps {
+  className?: string;
+  width?: number;
+  height?: number;
+  dotColor?: string;
+}
+
+/**
+ * Dots component - Renders a 5x5 grid of dots.
+ * The Figma component (23:751) shows 5 rows of 5 dots.
+ * The overall component instance (e.g. I29:331) has dimensions like 103x103 or 84x84 or 63x63.
+ * The dots themselves are Ellipse nodes with 4x4 dimensions.
+ * We can use SVG to render this pattern.
+ * @param {DotsProps} props - The props for the component.
+ * @returns {JSX.Element} The Dots component.
+ */
+const Dots: React.FC<DotsProps> = ({ className = "", width = 84, height = 84, dotColor = "#ABB2BF" }) => {
+  useEffect(() => {
+    loggerModule.debug(`Dots component mounted with width: ${width}, height: ${height}`);
+  }, [width, height]);
+
+  // Calculate spacing based on a 5x5 grid within the given width/height
+  // Assuming dots are r=2 (diameter 4). Let's aim for roughly equal spacing.
+  // For an 84x84 container, if dots are 4px, 5 dots = 20px. Remaining space = 64px.
+  // Space between 5 dots = 4 gaps. 64px / 4 gaps = 16px per gap center-to-center.
+  // So, dot positions would be roughly:
+  // r, r + 16, r + 32, r + 48, r + 64 (for an 84 width/height)
+  // Let's make it simpler: divide total width/height by 5 for step.
+  const numRows = 5;
+  const numCols = 5;
+  const xStep = width / numCols;
+  const yStep = height / numRows;
+  const radius = Math.min(xStep, yStep) / 4; // Make radius relative to step for scaling
+
+  const dotElements: ReactElement[] = [];
+  for (let i = 0; i < numRows; i++) {
+    for (let j = 0; j < numCols; j++) {
+      dotElements.push(
+        <Dot
+          key={`dot-${i}-${j}`}
+          cx={(j * xStep + xStep / 2).toString()}
+          cy={(i * yStep + yStep / 2).toString()}
+          r={radius.toString()}
+          fill={dotColor}
+        />
+      );
+    }
+  }
+  // For some reason, an effect hook is needed for logger to work in this component
+  // This is a workaround
+
+
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox={`0 0 ${width} ${height}`}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true" // Decorative element
+    >
+      {dotElements}
+    </svg>
+  );
+};
+
+export default Dots; 

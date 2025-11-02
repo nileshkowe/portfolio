@@ -1,0 +1,227 @@
+/**
+ * @file Centralized projects data for the portfolio.
+ * Consolidates all project entries so multiple sections/pages can consume a single source of truth.
+ * This avoids duplication and keeps rendering components lean.
+ */
+
+// NOTE: Keep this file framework-agnostic; do not import React here.
+
+export type ProjectStatus = 'completed' | 'in-progress' | 'planned'
+
+export interface ProjectDataItem {
+  /** Stable identifier */
+  id: string
+  /** Short title used in cards/headings */
+  title: string
+  /** Brief description for compact cards */
+  description: string
+  /** Longer description for details page/cards */
+  longDescription: string
+  /** Public path to image asset under `public/` */
+  image: string
+  /** Key technologies used */
+  technologies: string[]
+  /** Coarse category for filtering */
+  category: 'fullstack' | 'frontend' | 'ai' | 'tool'
+  /** External live/demo URL */
+  liveLink?: string
+  /** Source repository URL */
+  sourceLink?: string
+  /** Whether to highlight on home page */
+  featured?: boolean
+  /** Display year */
+  year: string
+  /** Project status */
+  status: ProjectStatus
+}
+
+/**
+ * Central list of projects. Images reference existing placeholders if specific assets are not available.
+ * If you add new assets, place them under `public/images/` and update the path.
+ */
+export const projectsData: ProjectDataItem[] = [
+  {
+    id: 'tma-histology-app',
+    title: 'TMA Histology Image Analysis (TMH)',
+    description: 'Web app for keypoint detection and histology analysis built for Tata Memorial Hospital.',
+    longDescription:
+      'Full-stack web application enabling keypoint detection and histology analysis for Tissue Microarray (TMA). Frontend built with React; backend with Python Flask. Utilizes PyTorch-based DNNs for inference, OpenCV/PIL for image processing, Konva.js for rich annotations, and SQLite for storage.',
+    image: '/images/projects/tma-histology-app.png',
+    technologies: ['React', 'TypeScript', 'Flask', 'PyTorch', 'OpenCV', 'PIL', 'Konva.js', 'SQLite'],
+    category: 'fullstack',
+    featured: true,
+    year: '2024',
+    status: 'completed'
+  },
+  {
+    id: 'iamrit-platform',
+    title: 'i-AMRIT: Advanced Digital Pathology Platform',
+    description: 'End-to-end digital pathology platform with advanced tooling and viewers.',
+    longDescription:
+      'Comprehensive digital pathology platform providing image viewing, annotation workflows, and extensible analysis pipelines tailored for histopathology and cytology use-cases.',
+    image: '/images/projects/iamrit-platform.png',
+    technologies: ['React', 'TypeScript', 'Node.js', 'Python', 'Flask'],
+    category: 'fullstack',
+    featured: true,
+    year: '2025',
+    status: 'completed'
+  },
+  {
+    id: 'oral-cytology-viewer',
+    title: 'Oral Cytology Viewer',
+    description: 'Interactive viewer for oral cytology slides and annotations.',
+    longDescription:
+      'Interactive web viewer for oral cytology that supports large imagery, annotations, and streamlined review workflows.',
+    image: '/images/projects/oral-cytology-viewer.png',
+    technologies: ['React', 'TypeScript', 'OpenSeadragon', 'Konva.js'],
+    category: 'frontend',
+    year: '2024',
+    status: 'completed'
+  },
+  {
+    id: 'wsi-cytology-pipeline',
+    title: 'WSI Processing Pipeline for Cytology',
+    description: 'Whole-slide image processing pipeline for cytology analysis.',
+    longDescription:
+      'Automated pipeline to process whole slide images (WSIs) for cytology data analysis, including preprocessing, tiling, and inference-ready outputs.',
+    image: '/images/projects/wsi-cytology-pipeline.png',
+    technologies: ['Python', 'PyTorch', 'OpenCV', 'NumPy'],
+    category: 'ai',
+    year: '2024',
+    status: 'completed'
+  },
+  {
+    id: 'dga-detection',
+    title: 'DGA Detection System',
+    description: 'Tokenization-driven DGA detection reducing false negatives over LSTMs.',
+    longDescription:
+      'Domain Generation Algorithm (DGA) detection leveraging GPT, BERT, and BLOOM tokenizers over domain strings. Compared entropy and token-length features to reduce false negatives observed in LSTM-based baselines.',
+    image: '/images/projects/dga-detection.png',
+    technologies: ['Python', 'PyTorch', 'Transformers', 'BERT', 'GPT', 'BLOOM'],
+    category: 'ai',
+    year: '2024',
+    status: 'completed'
+  },
+  {
+    id: 'flywheel-fault-ai',
+    title: 'Advanced Flywheel Fault Detection (Collaborative)',
+    description: 'UNet segmentation + YOLO detection for industrial defects.',
+    longDescription:
+      'Hybrid approach combining UNet segmentation and YOLO object detection to identify cracks, holes, chamfers, and axle rings from industrial camera inputs.',
+    image: '/images/projects/flywheel-fault-ai.png',
+    technologies: ['Python', 'PyTorch', 'UNet', 'YOLO', 'OpenCV'],
+    category: 'ai',
+    year: '2024',
+    status: 'completed'
+  },
+  {
+    id: 'streamlit-image-compare',
+    title: 'Streamlit Image Comparison for Tissue Analysis',
+    description: 'Compare WSIs for blur, pen marks, and tissue folds via sliders/blends.',
+    longDescription:
+      'Streamlit-based tool to compare tissue WSIs for blur levels, pen marks, and tissue folds with interactive slider and blend overlays to aid quality control.',
+    image: '/images/projects/streamlit-image-compare.png',
+    technologies: ['Python', 'Streamlit', 'OpenCV', 'Pillow'],
+    category: 'tool',
+    year: '2024',
+    status: 'completed'
+  },
+  {
+    id: 'microscopy-stitching',
+    title: 'Microscopy Frame Stitching for WSI',
+    description: 'Stitch microscopy frames into coherent WSIs.',
+    longDescription:
+      'Image stitching pipeline to reconstruct whole slide images from microscopy frame sequences with robust alignment and blending.',
+    image: '/images/projects/microscopy-stitching.png',
+    technologies: ['Python', 'OpenCV', 'NumPy', 'scikit-image'],
+    category: 'ai',
+    year: '2025',
+    status: 'completed'
+  },
+  {
+    id: 'caldera-red-team',
+    title: 'Caldera Red Team Simulation (Windows Exfiltration)',
+    description: 'Simulated data exfiltration to GitHub/Dropbox on Windows.',
+    longDescription:
+      'Adversary emulation using MITRE Caldera to simulate data exfiltration on Windows devices, including exfil to GitHub and Dropbox for blue-team validation.',
+    image: '/images/projects/caldera-red-team.png',
+    technologies: ['Caldera', 'Windows', 'PowerShell'],
+    category: 'tool',
+    year: '2025',
+    status: 'completed'
+  },
+  {
+    id: 'icmr-wsi-pipeline',
+    title: 'ICMR Project & WSI Patch Extraction',
+    description: 'WSI + annotation handling, ROI creation, and patch extraction.',
+    longDescription:
+      'End-to-end management of WSIs and doctor annotations, including square ROI creation, QuPath annotation handling, patch extraction, and GeoJSON merging.',
+    image: '/images/projects/icmr-wsi-pipeline.png',
+    technologies: ['Python', 'GeoJSON', 'QuPath', 'pyvips'],
+    category: 'tool',
+    year: '2024-2025',
+    status: 'completed'
+  },
+  {
+    id: 'ohif-orthanc-integration',
+    title: 'Radiology Viewer with OHIF + Orthanc',
+    description: 'Researching DICOM viewing integration for i-AMRIT.',
+    longDescription:
+      'In-progress research and integration planning to add OHIF-based DICOM viewing backed by Orthanc for radiology workflows inside i-AMRIT.',
+    image: '/images/projects/ohif-orthanc-integration.png',
+    technologies: ['OHIF', 'Orthanc', 'DICOM', 'React'],
+    category: 'frontend',
+    year: '2025',
+    status: 'in-progress'
+  },
+  {
+    id: 'revit-chatbot-llm',
+    title: 'Revit Chatbot with LLMs (Concept)',
+    description: 'Exploration with pyRevit/RevitPythonShell for voice modeling.',
+    longDescription:
+      'Concept exploration to integrate ChatGPT with Revit using pyRevit and RevitPythonShell aiming at voice-commanded modeling automation. Not pursued further.',
+    image: '/images/projects/revit-chatbot-llm.png',
+    technologies: ['Python', 'pyRevit', 'RevitPythonShell', 'OpenAI API'],
+    category: 'tool',
+    year: '2024-2025',
+    status: 'planned'
+  },
+  {
+    id: 'qupath-scripting',
+    title: 'QuPath Scripting & Image Conversion',
+    description: 'Scripts for GeoJSON/qpdata I/O, MRXS→SVS, and SVS→DZI.',
+    longDescription:
+      'Developed scripts for QuPath including import/export of GeoJSON and qpdata, VIPS/pyvips-based MRXS to SVS conversion, SVS to DZI conversion, and related tasks.',
+    image: '/images/projects/qupath-scripting.png',
+    technologies: ['QuPath', 'Python', 'VIPS', 'pyvips', 'GeoJSON'],
+    category: 'tool',
+    year: '2024-2025',
+    status: 'completed'
+  },
+  {
+    id: 'startup-website',
+    title: 'Startup Company Website',
+    description: 'Website built from scratch using React and TypeScript.',
+    longDescription:
+      'Corporate website implemented from scratch using React and TypeScript with a modern responsive UI and reusable component architecture.',
+    image: '/images/projects/startup-website.png',
+    technologies: ['React', 'TypeScript', 'Vite', 'Tailwind CSS'],
+    category: 'frontend',
+    year: '2025',
+    status: 'completed'
+  },
+  {
+    id: 'arduino-flask-wheel-demo',
+    title: 'Multi-Model Wheel Demo (React + Flask + Arduino)',
+    description: 'Automated rotating wheel captures and runs model inference per plate.',
+    longDescription:
+      'Demonstration system with React Vite UI and Flask backend coordinating an Arduino-driven rotating wheel holding four plates for separate models. After each iteration the wheel stops, an image is captured, inference runs, and detections are displayed as overlays.',
+    image: '/images/projects/arduino-flask-wheel-demo.png',
+    technologies: ['React', 'Vite', 'Flask', 'Arduino', 'OpenCV'],
+    category: 'fullstack',
+    year: '2025',
+    status: 'completed'
+  }
+]
+
+
