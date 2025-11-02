@@ -892,3 +892,380 @@ const InteractiveBackground = dynamic(
 **Full detailed report with screenshots and console logs available at:**
 
 `docs/ai-outputs/02-ux-audit.md` (105 pages, comprehensive analysis)
+
+---
+
+## 8. COMPETITIVE RESEARCH & MARKET ANALYSIS
+
+**Research Date:** November 2, 2025
+
+**Research Method:** Perplexity Deep Research + Web Search
+
+**Full Report:** `docs/ai-outputs/03-competitive-research.md`
+
+### Executive Summary
+
+Comprehensive research on modern portfolio trends, UI libraries, animation techniques, and design best practices for 2025. Key findings identify **shadcn/ui** as the dominant UI library choice, **Motion.dev** as the optimal animation solution, and critical insights about design trends and performance requirements.
+
+### Key Research Findings
+
+#### 1. Top Modern Portfolios (2024-2025)
+
+**Award-Winning Characteristics:**
+
+- Bold, high-contrast color palettes with dark mode + neon accents
+- Sophisticated scroll-triggered animations
+- Case studies showing design process (not just outputs)
+- Fast loading times (Core Web Vitals optimized)
+- Next.js + React + Tailwind CSS (most common stack)
+
+**Common Technologies:**
+
+- Next.js 15 + React 19 ✅ (we're using this)
+- Tailwind CSS ✅ (we're using this)
+- Motion.dev (formerly Framer Motion) - **RECOMMENDED**
+- shadcn/ui - **RECOMMENDED ADDITION**
+- Three.js (selective use for backgrounds) ✅ (we have this)
+
+#### 2. UI Component Libraries Analysis
+
+**Winner: shadcn/ui**
+
+**Why It's #1 in 2025:**
+
+- Copy-and-own model (components in your codebase)
+- Full code ownership and customization
+- Built on Radix UI (accessibility foundation)
+- Tailwind CSS integration (perfect for our stack)
+- 85,500+ GitHub stars, ecosystem momentum
+- AI tool integration (v0, Lovable default)
+
+**Comparison:**
+
+- **shadcn/ui:** Best for portfolios (distinctive, customizable)
+- **Radix UI:** Foundation for shadcn/ui
+- **Material-UI:** Too generic, large bundle size
+- **Chakra UI Pro:** Good but less flexible
+- **HeroUI:** Good defaults but less customization
+
+**Recommendation:** Install shadcn/ui immediately
+
+#### 3. Animation Libraries & Techniques
+
+**Primary Choice: Motion.dev** (formerly Framer Motion)
+
+**Why Motion.dev:**
+
+- Bundle size: 2.6KB (vs GSAP's 23.5KB)
+- 2.5x faster than GSAP for unknown values
+- React 19 compatible (with `motion/react` import)
+- Declarative API (fits React paradigm)
+- Built for Next.js 15
+
+**Secondary: GSAP ScrollTrigger** (code-split)
+
+- Advanced scroll effects
+- Parallax animations
+- Complex timeline sequences
+- Use selectively for special effects
+
+**Foundation: Native CSS**
+
+- Simple hover effects
+- Basic transitions
+- Button interactions
+
+**Current Status:** Using Framer Motion → **MIGRATE TO MOTION.DEV**
+
+#### 4. 2025 Web Design Trends
+
+**Trends to Adopt:**
+
+1. **Variable Fonts**
+
+   - Single file = multiple styles
+   - Performance benefits
+   - Responsive typography
+   - Modern standard
+
+2. **Dark Mode**
+
+   - Expected feature (not optional)
+   - System preference detection
+   - Battery benefits (OLED)
+   - High contrast combinations
+
+3. **Micro-Interactions**
+
+   - Hover effects, loading states
+   - Scroll-triggered animations
+   - Custom cursors (optional)
+   - Professional polish
+
+4. **Bento Grids**
+
+   - Modular layouts
+   - Visual interest
+   - Excellent for project showcases
+
+5. **Scroll-Triggered Animations**
+
+   - Progressive reveals
+   - Motion.dev `whileInView`
+   - Engagement factor
+
+**Trends to Skip:**
+
+1. **Neumorphism** - Accessibility violations, low contrast
+2. **Excessive Brutalism** - Too extreme, usability concerns
+3. **Overuse of 3D** - Performance impact, mobile concerns
+4. **Glassmorphism Everywhere** - Overuse reduces impact
+5. **Gesture-Only Navigation** - Accessibility issues
+
+#### 5. 3D & Interactive Elements
+
+**Current Status:** ✅ Using Three.js for animated background
+
+**Recommendation:**
+
+- **Keep:** Existing animated background
+- **Optimize:** Mobile performance, add fallbacks
+- **Don't Add:** More 3D elements (focus on fixing bugs)
+- **Priority:** Low (optimize existing, don't expand)
+
+#### 6. Performance & SEO Best Practices
+
+**Lighthouse Expectations:**
+
+- Performance: 90+ (good), 80+ (acceptable)
+- Accessibility: 95+ expected
+- Best Practices: 95+ expected
+- SEO: 90+ expected
+
+**Core Web Vitals Targets:**
+
+- LCP: < 2.5 seconds
+- INP: < 200 milliseconds
+- CLS: < 0.1
+
+**Image Optimization:**
+
+- Format: AVIF > WebP > JPEG
+- Next.js `Image` with `sizes` prop ⚠️ (missing)
+- Lazy loading below-fold
+- Responsive images
+
+**SEO Requirements:**
+
+- Meta tags (all pages) ⚠️ (verify)
+- Structured data (Person, Portfolio)
+- Open Graph images
+- XML sitemap (auto Next.js)
+- Mobile-first indexing
+
+#### 7. Portfolio Structure Best Practices
+
+**Modern Sections:**
+
+- Hero: Full-screen, clear CTA, bold typography
+- Projects: Filterable, searchable, detailed case studies
+- About: Timeline format, values, personality
+- Contact: Multiple methods, easy forms
+- Footer: Social links, navigation, clean
+
+**User Journey:**
+
+- Hero → Projects → About → Contact
+- Clear CTAs throughout
+- Smooth navigation
+- Mobile-optimized
+
+### Critical Recommendations Summary
+
+#### HIGH PRIORITY (Week 1)
+
+1. **Migrate to Motion.dev** ⚠️
+
+   - Replace `framer-motion` with `motion/react`
+   - Fix React 19 compatibility
+   - Implement page transitions
+
+2. **Install shadcn/ui** ⚠️
+
+   - `npx shadcn-ui@latest init`
+   - Add core components
+   - Replace custom components
+
+3. **Fix Broken Features** ❌
+
+   - Interactive Terminal
+   - Code Playground
+   - Form validation
+
+4. **Image Optimization** ⚠️
+
+   - Add `sizes` prop to all `next/image`
+   - Convert to WebP/AVIF
+   - Lazy loading
+
+5. **Dark Mode** ⚠️
+
+   - System preference detection
+   - Toggle functionality
+   - Theme consistency
+
+6. **SEO & Meta Tags** ⚠️
+
+   - All pages
+   - Structured data
+   - Open Graph images
+
+#### MEDIUM PRIORITY (Week 2)
+
+7. **Accessibility** ⚠️
+
+   - WCAG 2.1 compliance
+   - Keyboard navigation
+   - Screen reader optimization
+   - `prefers-reduced-motion`
+
+8. **Performance** ⚠️
+
+   - Core Web Vitals optimization
+   - Font loading
+   - Code splitting
+
+9. **Enhanced Interactions** ⚠️
+
+   - Scroll-triggered animations
+   - Micro-interactions
+   - Smooth transitions
+
+10. **Project Enhancements** ⚠️
+
+    - Filtering/search
+    - Better case studies
+
+### Technology Stack Recommendations
+
+**Current Stack:**
+
+- ✅ Next.js 15
+- ✅ React 19
+- ✅ TypeScript
+- ✅ Tailwind CSS v4
+- ✅ Three.js (background)
+
+**Additions Needed:**
+
+- ⚠️ Motion.dev (`motion/react`)
+- ⚠️ shadcn/ui
+- ⚠️ Dark mode implementation
+
+**Removals/Replacements:**
+
+- ❌ Framer Motion → Motion.dev
+- ❌ Custom components → shadcn/ui (where possible)
+
+### Action Plan Integration
+
+**Phase 1: Analysis & Planning** ✅
+
+- ✅ Codebase Analysis
+- ✅ UX Audit
+- ✅ Competitive Research ← **YOU ARE HERE**
+
+**Phase 2: Implementation (Week 2)**
+
+- ⏭️ shadcn/ui setup
+- ⏭️ Motion.dev migration
+- ⏭️ Fix broken features
+- ⏭️ Dark mode
+- ⏭️ SEO optimization
+
+**Phase 3: Testing (Week 3)**
+
+- ⏭️ Bug fixes
+- ⏭️ Performance optimization
+- ⏭️ Accessibility audit
+- ⏭️ Polish
+
+**Phase 4: Deployment (Week 4)**
+
+- ⏭️ Deploy to Vercel
+- ⏭️ LAUNCH! 🚀
+
+### Research Sources
+
+**Full Report:** `docs/ai-outputs/03-competitive-research.md`
+
+**Key Sources:**
+
+- Awwwards portfolio winners (2024-2025)
+- Behance Design Trends 2025
+- shadcn/ui documentation & comparisons
+- Motion.dev documentation
+- Web design trends articles (2024-2025)
+- WCAG 2.1/2.2 accessibility standards
+
+**Research Methodology:**
+
+- Perplexity Deep Research (comprehensive analysis)
+- Web search (supplementary information)
+- Cross-referencing multiple sources
+- Focus on 2024-2025 current data
+
+---
+
+## 9. NEXT STEPS - IMPLEMENTATION ROADMAP
+
+Based on UX Audit + Competitive Research:
+
+### Immediate Actions (This Week)
+
+1. **Fix Critical Broken Features** ❌
+
+   - Interactive Terminal (browser interaction failures)
+   - Code Playground (execution errors)
+   - Form validation (client-side)
+
+2. **Technology Migration** ⚠️
+
+   - Framer Motion → Motion.dev (`motion/react`)
+   - Add shadcn/ui components
+   - Update imports and implementations
+
+3. **Core Optimizations** ⚠️
+
+   - Image optimization (`sizes` prop)
+   - Dark mode implementation
+   - SEO meta tags
+
+### Week 2 Goals
+
+4. **Enhanced Features**
+
+   - Scroll-triggered animations
+   - Micro-interactions
+   - Project filtering/search
+
+5. **Performance & Accessibility**
+
+   - Core Web Vitals optimization
+   - WCAG 2.1 compliance
+   - Keyboard navigation
+
+### Success Metrics
+
+**Target Scores:**
+
+- Lighthouse Performance: 90+
+- Lighthouse Accessibility: 95+
+- Lighthouse Best Practices: 95+
+- Lighthouse SEO: 90+
+- Core Web Vitals: All green ✅
+- Zero broken features ✅
+
+**Full detailed research report available at:**
+
+`docs/ai-outputs/03-competitive-research.md` (comprehensive 8-section analysis)
