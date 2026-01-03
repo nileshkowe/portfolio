@@ -1,15 +1,12 @@
-/**
- * @file ProjectsSection component for the portfolio website.
- * Displays a showcase of featured projects with descriptions and links.
- */
 'use client'
 
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import Link from 'next/link'
-import { ExternalLink } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
+import Magnet from '@/components/ui/Magnet'
 import { projectsData, type ProjectDataItem } from '@/lib/projectsData'
-import { info as logInfo, debug as logDebug } from '@/lib/logger'
+import { debug as logDebug } from '@/lib/logger'
 import LineDeco from '@/app/(components)/LineDeco'
 import Dots from '@/app/(components)/Dots'
 import ExpandableProjectCard from '@/components/ExpandableProjectCard'
@@ -20,6 +17,15 @@ type Project = ProjectDataItem
 const ProjectsSection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" })
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  })
+
+  // Parallax effects for columns
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -50])
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, 50])
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, -30])
 
   // Select a subset for the home page. Keep featured first, then recent.
   const projects: Project[] = projectsData
@@ -84,24 +90,40 @@ const ProjectsSection: React.FC = () => {
 
           {/* Projects Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <ExpandableProjectCard 
-                key={project.id} 
-                project={project} 
-                index={index}
-              />
-            ))}
+            {projects.map((project, index) => {
+              // Determine which column this item belongs to (roughly)
+              // This is a simplification, but works for standard grid
+              let y = y1
+              if (index % 3 === 1) y = y2
+              if (index % 3 === 2) y = y3
+
+              return (
+                <motion.div key={project.id} style={{ y }}>
+                  <ExpandableProjectCard
+                    project={project}
+                    index={index}
+                  />
+                </motion.div>
+              )
+            })}
           </div>
 
           {/* View All Button */}
-          <motion.div variants={itemVariants} className="text-center mt-12">
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-2 px-8 py-3 border border-primary text-primary font-medium rounded-lg hover:bg-primary/10 transition-all duration-300"
-            >
-              View All Projects
-              <ExternalLink size={18} />
-            </Link>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-center mt-16"
+          >
+            <Magnet padding={50} magnetStrength={5}>
+              <Link
+                href="/projects"
+                className="inline-flex items-center gap-2 px-8 py-3 bg-transparent border border-primary text-primary font-medium rounded-lg hover:bg-primary hover:text-white transition-all duration-300"
+              >
+                View All Projects
+                <ArrowRight size={20} />
+              </Link>
+            </Magnet>
           </motion.div>
         </motion.div>
       </div>

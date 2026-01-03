@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import { cn } from "@/lib/utils";
 import React, {
   ComponentPropsWithoutRef,

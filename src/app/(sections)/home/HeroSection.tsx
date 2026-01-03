@@ -11,6 +11,8 @@ import Image from 'next/image'
 import { useRef, useState, useEffect } from 'react'
 import Dots from '@/app/(components)/Dots'
 import * as loggerModule from '@/logger'
+import SplitText from '@/components/ui/SplitText'
+import Magnet from '@/components/ui/Magnet'
 
 const HeroSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -69,61 +71,71 @@ const HeroSection: React.FC = () => {
           {/* Text Content */}
           <div className="space-y-8">
             <motion.div variants={itemVariants}>
-              <motion.h1 
-                className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                <span className="text-primary">Nilesh</span> is a{' '}
-                <motion.span
-                  className="relative"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                    software developer
-                  </span>
-                  <motion.div
-                    className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary to-accent"
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{ duration: 0.8, delay: 1 }}
-                  />
-                </motion.span>
-                {' '}and{' '}
-                <span className="text-accent">AIML engineer</span>
-              </motion.h1>
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight flex flex-wrap gap-x-4 gap-y-2">
+                <SplitText
+                  text="Nilesh"
+                  className="text-primary inline-block"
+                  delay={50}
+                  animationFrom={{ opacity: 0, transform: 'translate3d(0,50px,0)' }}
+                  animationTo={{ opacity: 1, transform: 'translate3d(0,0,0)' }}
+                  threshold={0.1}
+                  rootMargin="-50px"
+                />
+                <span className="inline-block">is a</span>
+                <SplitText
+                  text="software developer"
+                  className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent inline-block"
+                  delay={50}
+                  animationFrom={{ opacity: 0, transform: 'translate3d(0,50px,0)' }}
+                  animationTo={{ opacity: 1, transform: 'translate3d(0,0,0)' }}
+                  threshold={0.1}
+                  rootMargin="-50px"
+                />
+                <span className="inline-block">and</span>
+                <SplitText
+                  text="AIML engineer"
+                  className="text-accent inline-block"
+                  delay={50}
+                  animationFrom={{ opacity: 0, transform: 'translate3d(0,50px,0)' }}
+                  animationTo={{ opacity: 1, transform: 'translate3d(0,0,0)' }}
+                  threshold={0.1}
+                  rootMargin="-50px"
+                />
+              </h1>
             </motion.div>
 
-            <motion.p 
+            <motion.p
               variants={itemVariants}
               className="text-xl text-secondary leading-relaxed max-w-lg"
             >
-              I craft responsive websites and intelligent systems where technologies meet creativity. 
+              I craft responsive websites and intelligent systems where technologies meet creativity.
               Turning complex problems into elegant solutions.
             </motion.p>
 
             <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
-              <motion.button
-                data-magnetic
-                whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(199, 120, 221, 0.5)" }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-all duration-300 flex items-center gap-2"
-              >
-                <Download size={20} />
-                Download CV
-              </motion.button>
-              
-              <motion.button
-                data-magnetic
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 border border-primary text-primary font-medium rounded-lg hover:bg-primary/10 transition-all duration-300 flex items-center gap-2"
-              >
-                Contact Me
-                <ArrowDown size={16} />
-              </motion.button>
+              <Magnet padding={50} magnetStrength={3}>
+                <motion.button
+                  data-magnetic
+                  whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(199, 120, 221, 0.5)" }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-all duration-300 flex items-center gap-2"
+                >
+                  <Download size={20} />
+                  Download CV
+                </motion.button>
+              </Magnet>
+
+              <Magnet padding={50} magnetStrength={3}>
+                <motion.button
+                  data-magnetic
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-3 border border-primary text-primary font-medium rounded-lg hover:bg-primary/10 transition-all duration-300 flex items-center gap-2"
+                >
+                  Contact Me
+                  <ArrowDown size={16} />
+                </motion.button>
+              </Magnet>
             </motion.div>
 
             {/* Social Links */}
@@ -169,7 +181,7 @@ const HeroSection: React.FC = () => {
             className="relative flex justify-center lg:justify-end"
           >
             <motion.div
-              animate={{ 
+              animate={{
                 rotate: [0, 360],
                 scale: [1, 1.1, 1]
               }}
@@ -179,7 +191,7 @@ const HeroSection: React.FC = () => {
               }}
               className="absolute inset-0 bg-gradient-to-r from-primary to-accent rounded-full blur-xl opacity-30"
             />
-            
+
             <motion.div
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
@@ -229,4 +241,4 @@ const HeroSection: React.FC = () => {
   )
 }
 
-export default HeroSection 
+export default HeroSection

@@ -9,6 +9,7 @@ import { useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft, Calendar, MapPin, Code, Brain, Heart, Target, Award, Coffee, Github, Mail } from 'lucide-react'
+import Magnet from '@/components/ui/Magnet'
 
 const AboutPage: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -109,13 +110,15 @@ const AboutPage: React.FC = () => {
             transition={{ duration: 0.6 }}
             className="mb-8"
           >
-            <Link 
-              href="/"
-              className="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors duration-200"
-            >
-              <ArrowLeft size={20} />
-              Back to Home
-            </Link>
+            <Magnet padding={50} magnetStrength={5}>
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors duration-200"
+              >
+                <ArrowLeft size={20} />
+                Back to Home
+              </Link>
+            </Magnet>
           </motion.div>
 
           <motion.div
@@ -128,7 +131,7 @@ const AboutPage: React.FC = () => {
               <span className="text-primary">#</span>about-me
             </h1>
             <p className="text-xl text-secondary max-w-3xl mx-auto leading-relaxed">
-              Passionate software developer and AI/ML engineer dedicated to creating innovative solutions 
+              Passionate software developer and AI/ML engineer dedicated to creating innovative solutions
               that bridge the gap between technology and human needs.
             </p>
           </motion.div>
@@ -148,23 +151,23 @@ const AboutPage: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               <motion.div variants={itemVariants} className="space-y-6">
                 <h2 className="text-3xl font-bold text-white mb-6">
-                  Hello, I'm <span className="text-primary">Nilesh</span>
+                  Hello, I&apos;m <span className="text-primary">Nilesh</span>
                 </h2>
                 <div className="space-y-4 text-secondary leading-relaxed">
                   <p>
-                    I&apos;m a passionate Software Developer and AI/ML Engineer with 1 year of experience 
-                    building robust web applications and intelligent systems. My journey in technology started 
-                    with a curiosity about how things work and has evolved into a deep passion for creating 
+                    I&apos;m a passionate Software Developer and AI/ML Engineer with 1 year of experience
+                    building robust web applications and intelligent systems. My journey in technology started
+                    with a curiosity about how things work and has evolved into a deep passion for creating
                     solutions that make a real impact.
                   </p>
                   <p>
-                    I specialize in full-stack development using modern technologies like React, Next.js, 
-                    Node.js, and Python. My expertise extends to AI/ML with frameworks like TensorFlow 
+                    I specialize in full-stack development using modern technologies like React, Next.js,
+                    Node.js, and Python. My expertise extends to AI/ML with frameworks like TensorFlow
                     and PyTorch, allowing me to build intelligent applications that solve complex problems.
                   </p>
                   <p>
-                    When I&apos;m not coding, you&apos;ll find me exploring new technologies, contributing to open-source 
-                    projects, or sharing knowledge with the developer community. I believe in continuous 
+                    When I&apos;m not coding, you&apos;ll find me exploring new technologies, contributing to open-source
+                    projects, or sharing knowledge with the developer community. I believe in continuous
                     learning and staying at the forefront of technological innovation.
                   </p>
                 </div>
@@ -223,10 +226,28 @@ const AboutPage: React.FC = () => {
                 My <span className="text-primary">Journey</span>
               </h2>
               <div className="relative">
-                {/* Timeline Line */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-primary to-accent opacity-30"></div>
-                
-                <div className="space-y-12">
+                {/* Timeline Line SVG Animation */}
+                <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full">
+                  <svg className="h-full w-full overflow-visible" preserveAspectRatio="none">
+                    <motion.path
+                      d="M 2 0 V 1000" // Simple vertical line, will scale with container
+                      stroke="url(#gradient)"
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                      initial={{ pathLength: 0 }}
+                      whileInView={{ pathLength: 1 }}
+                      transition={{ duration: 1.5, ease: "easeInOut" }}
+                    />
+                    <defs>
+                      <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stopColor="#C778DD" />
+                        <stop offset="100%" stopColor="#61DAFB" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+
+                <div className="space-y-12 relative z-10">
                   {journey.map((item, index) => (
                     <motion.div
                       key={index}
@@ -234,16 +255,21 @@ const AboutPage: React.FC = () => {
                       className={`flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
                     >
                       <div className={`w-1/2 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8'}`}>
-                        <div className="bg-darker/50 backdrop-blur-sm border border-secondary/20 rounded-xl p-6 hover:border-primary/50 transition-all duration-300">
+                        <div className="bg-darker/50 backdrop-blur-sm border border-secondary/20 rounded-xl p-6 hover:border-primary/50 transition-all duration-300 group hover:-translate-y-1">
                           <div className="text-primary font-bold text-lg mb-2">{item.year}</div>
-                          <h3 className="text-white font-semibold text-xl mb-2">{item.title}</h3>
+                          <h3 className="text-white font-semibold text-xl mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
                           <p className="text-secondary">{item.description}</p>
                         </div>
                       </div>
-                      
+
                       {/* Timeline Dot */}
-                      <div className="w-6 h-6 bg-primary rounded-full border-4 border-dark flex-shrink-0 z-10"></div>
-                      
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        whileInView={{ scale: 1 }}
+                        transition={{ delay: 0.5 + (index * 0.2), type: "spring" }}
+                        className="w-6 h-6 bg-primary rounded-full border-4 border-dark flex-shrink-0 z-10 shadow-[0_0_10px_rgba(199,120,221,0.5)]"
+                      ></motion.div>
+
                       <div className="w-1/2"></div>
                     </motion.div>
                   ))}
@@ -309,29 +335,33 @@ const AboutPage: React.FC = () => {
             {/* Contact CTA */}
             <motion.div variants={itemVariants} className="text-center space-y-6">
               <h2 className="text-3xl font-bold text-white mb-6">
-                Let's <span className="text-primary">Connect</span>
+                Let&apos;s <span className="text-primary">Connect</span>
               </h2>
               <p className="text-secondary text-lg max-w-2xl mx-auto mb-8">
-                I&apos;m always interested in new opportunities, collaborations, or just a good conversation 
+                I&apos;m always interested in new opportunities, collaborations, or just a good conversation
                 about technology and innovation.
               </p>
               <div className="flex justify-center gap-4">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-all duration-300"
-                >
-                  <Mail size={20} />
-                  Get In Touch
-                </Link>
-                <a
-                  href="https://github.com/nileshkowe"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-8 py-3 border border-secondary text-secondary font-medium rounded-lg hover:border-primary hover:text-primary transition-all duration-300"
-                >
-                  <Github size={20} />
-                  GitHub
-                </a>
+                <Magnet padding={50} magnetStrength={5}>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-all duration-300"
+                  >
+                    <Mail size={20} />
+                    Get In Touch
+                  </Link>
+                </Magnet>
+                <Magnet padding={50} magnetStrength={5}>
+                  <a
+                    href="https://github.com/nileshkowe"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-8 py-3 border border-secondary text-secondary font-medium rounded-lg hover:border-primary hover:text-primary transition-all duration-300"
+                  >
+                    <Github size={20} />
+                    GitHub
+                  </a>
+                </Magnet>
               </div>
             </motion.div>
           </motion.div>
@@ -341,4 +371,4 @@ const AboutPage: React.FC = () => {
   )
 }
 
-export default AboutPage 
+export default AboutPage

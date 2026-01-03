@@ -3,13 +3,7 @@
  * Provides timestamped logging to console.
  */
 
-/**
- * Generates a timestamp string in ISO format.
- * @returns {string} The current timestamp.
- */
-function getTimestamp(): string {
-  return new Date().toISOString();
-}
+
 
 /**
  * Logger module with different logging levels.
@@ -53,7 +47,7 @@ export const logger = {
    * @param {string} message - The message to log.
    * @param {any} [errorObject] - Optional error object to log.
    */
-  error: (message: string, errorObject?: any): void => {
+  error: (message: string, errorObject?: unknown): void => {
     console.error(`[ERROR] ${message}`, errorObject || '');
   },
 };

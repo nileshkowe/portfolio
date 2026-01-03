@@ -1,8 +1,8 @@
 'use client'
 
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { Canvas, useFrame } from '@react-three/fiber'
 import { useRef, useMemo, Suspense } from 'react'
-import { Points, PointMaterial, Sphere } from '@react-three/drei'
+import { Points, PointMaterial } from '@react-three/drei'
 import * as THREE from 'three'
 
 /**
@@ -11,14 +11,14 @@ import * as THREE from 'three'
  */
 function AnimatedStars() {
   const ref = useRef<THREE.Points>(null)
-  
+
   // Generate random star positions
   const sphere = useMemo(() => {
     const positions = new Float32Array(2000 * 3)
     for (let i = 0; i < 2000; i++) {
       const i3 = i * 3
       positions[i3] = (Math.random() - 0.5) * 20
-      positions[i3 + 1] = (Math.random() - 0.5) * 20  
+      positions[i3 + 1] = (Math.random() - 0.5) * 20
       positions[i3 + 2] = (Math.random() - 0.5) * 20
     }
     return positions
@@ -50,7 +50,7 @@ function AnimatedStars() {
  */
 function FloatingParticles() {
   const ref = useRef<THREE.Points>(null)
-  
+
   const particles = useMemo(() => {
     const positions = new Float32Array(500 * 3)
     for (let i = 0; i < 500; i++) {
@@ -102,7 +102,7 @@ function LoadingFallback() {
 export function InteractiveBackground() {
   return (
     <div className="fixed inset-0 -z-10">
-      <Canvas 
+      <Canvas
         camera={{ position: [0, 0, 1] }}
         style={{ background: 'transparent' }}
       >

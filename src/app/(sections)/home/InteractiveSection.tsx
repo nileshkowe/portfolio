@@ -48,7 +48,7 @@ export default function InteractiveSection() {
             <span className="text-primary">Interactive</span> Experience
           </h2>
           <p className="text-xl text-secondary max-w-2xl mx-auto">
-            Explore my skills and projects through these interactive tools. 
+            Explore my skills and projects through these interactive tools.
             Try the terminal, run some code, or check out my live activity.
           </p>
         </motion.div>
@@ -104,7 +104,7 @@ export default function InteractiveSection() {
           className="text-center mt-16"
         >
           <p className="text-secondary mb-6">
-            Ready to work together? Let's build something amazing!
+            Ready to work together? Let&apos;s build something amazing!
           </p>
           <motion.button
             whileHover={{ scale: 1.05 }}

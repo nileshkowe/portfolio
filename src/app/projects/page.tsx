@@ -4,12 +4,13 @@
  */
 'use client'
 
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { useRef, useState } from 'react'
 import Link from 'next/link'
-import { ExternalLink, Filter, Search, ArrowLeft, Calendar, Code, Database, Globe, Cpu } from 'lucide-react'
+import { Search, ArrowLeft, Code, Database, Globe, Cpu } from 'lucide-react'
+import Magnet from '@/components/ui/Magnet'
 import { projectsData, type ProjectDataItem } from '@/lib/projectsData'
-import { info as logInfo, debug as logDebug } from '@/lib/logger'
+import { debug as logDebug } from '@/lib/logger'
 import ExpandableProjectCard from '@/components/ExpandableProjectCard'
 
 // Local alias to keep component types expressive without redefining
@@ -18,7 +19,7 @@ type Project = ProjectDataItem
 const ProjectsPage: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" })
-  
+
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [searchTerm, setSearchTerm] = useState('')
 
@@ -36,9 +37,9 @@ const ProjectsPage: React.FC = () => {
 
   const filteredProjects = projects.filter(project => {
     const matchesCategory = selectedCategory === 'all' || project.category === selectedCategory
-    const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                         project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         project.technologies.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()))
+    const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.technologies.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()))
     return matchesCategory && matchesSearch
   })
 
@@ -75,13 +76,15 @@ const ProjectsPage: React.FC = () => {
             transition={{ duration: 0.6 }}
             className="mb-8"
           >
-            <Link 
-              href="/"
-              className="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors duration-200"
-            >
-              <ArrowLeft size={20} />
-              Back to Home
-            </Link>
+            <Magnet padding={50} magnetStrength={5}>
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors duration-200"
+              >
+                <ArrowLeft size={20} />
+                Back to Home
+              </Link>
+            </Magnet>
           </motion.div>
 
           <motion.div
@@ -94,7 +97,7 @@ const ProjectsPage: React.FC = () => {
               <span className="text-primary">#</span>projects
             </h1>
             <p className="text-xl text-secondary max-w-3xl mx-auto leading-relaxed">
-              A comprehensive collection of my work spanning web development, AI/ML, and innovative tools. 
+              A comprehensive collection of my work spanning web development, AI/ML, and innovative tools.
               Click on any project to see more details and explore the technologies used.
             </p>
           </motion.div>
@@ -133,14 +136,20 @@ const ProjectsPage: React.FC = () => {
                     onClick={() => setSelectedCategory(category.id)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
-                      isActive 
-                        ? 'bg-primary text-white shadow-lg' 
-                        : 'bg-darker/50 text-secondary border border-secondary/20 hover:border-primary/50 hover:text-primary'
-                    }`}
+                    className={`relative flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${isActive ? 'text-white' : 'text-secondary hover:text-primary'
+                      }`}
                   >
-                    <Icon size={18} />
-                    {category.label}
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeCategory"
+                        className="absolute inset-0 bg-primary rounded-xl"
+                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                      />
+                    )}
+                    <span className="relative z-10 flex items-center gap-2">
+                      <Icon size={18} />
+                      {category.label}
+                    </span>
                   </motion.button>
                 )
               })}
@@ -169,13 +178,23 @@ const ProjectsPage: React.FC = () => {
               animate={isInView ? "visible" : "hidden"}
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
             >
-              {filteredProjects.map((project, index) => (
-                <ExpandableProjectCard 
-                  key={project.id} 
-                  project={project} 
-                  index={index}
-                />
-              ))}
+              <AnimatePresence mode='popLayout'>
+                {filteredProjects.map((project, index) => (
+                  <motion.div
+                    key={project.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <ExpandableProjectCard
+                      project={project}
+                      index={index}
+                    />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </motion.div>
           )}
         </div>

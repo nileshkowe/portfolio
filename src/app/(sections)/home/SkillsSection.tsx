@@ -6,8 +6,8 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { Code, Database, Wrench, Globe, Terminal, Cpu } from 'lucide-react'
-import * as loggerModule from '@/logger'
+import { Code, Database, Wrench, Globe, Cpu } from 'lucide-react'
+
 
 interface Skill {
   name: string
@@ -190,7 +190,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skillCategories = default
                 >
                   {/* Category Header */}
                   <div className="flex items-center gap-4 mb-6">
-                    <div 
+                    <div
                       className="w-12 h-12 rounded-lg flex items-center justify-center"
                       style={{ backgroundColor: `${category.color}20` }}
                     >
@@ -217,19 +217,20 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skillCategories = default
                             </span>
                           )}
                         </div>
-                        
+
                         {/* Proficiency Bar */}
                         <div className="w-full bg-secondary/10 rounded-full h-2 overflow-hidden">
                           <motion.div
                             initial={{ width: 0 }}
                             animate={isInView ? { width: 'var(--target-width)' } : { width: 0 }}
-                            transition={{ 
-                              duration: 1, 
-                              delay: categoryIndex * 0.2 + skillIndex * 0.1,
-                              ease: "easeOut"
+                            transition={{
+                              type: "spring",
+                              stiffness: 50,
+                              damping: 15,
+                              delay: categoryIndex * 0.1 + skillIndex * 0.05
                             }}
                             className={`h-full rounded-full ${getProficiencyColor(skill.proficiency)} ${getProficiencyWidth(skill.proficiency)}`}
-                            style={{ '--target-width': getProficiencyWidth(skill.proficiency).replace('w-', '').replace('full', '100%').replace('4/5', '80%').replace('3/5', '60%').replace('2/5', '40%') } as any}
+                            style={{ '--target-width': getProficiencyWidth(skill.proficiency).replace('w-', '').replace('full', '100%').replace('4/5', '80%').replace('3/5', '60%').replace('2/5', '40%') } as React.CSSProperties}
                           />
                         </div>
                       </motion.div>
@@ -241,7 +242,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skillCategories = default
           </div>
 
           {/* Summary Stats */}
-          <motion.div 
+          <motion.div
             variants={categoryVariants}
             className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
           >

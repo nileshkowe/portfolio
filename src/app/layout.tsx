@@ -3,7 +3,8 @@ import { Fira_Code } from "next/font/google";
 import "./globals.css";
 import Header from "@/app/(components)/Header";
 import Footer from "@/app/(components)/Footer";
-import { InteractiveBackground } from "@/components/3d/InteractiveBackground";
+import Spotlight from "@/components/ui/Spotlight";
+import LiquidBackground from '@/components/3d/LiquidBackground'
 import { MagneticCursor } from "@/components/ui/MagneticCursor";
 import { PageTransition } from "@/components/transitions/PageTransition";
 import { ThemeCustomizer } from "@/components/ui/ThemeCustomizer";
@@ -30,12 +31,6 @@ export const metadata: Metadata = {
   description: "Personal portfolio of Nilesh, showcasing projects in Software Development and AI/ML Engineering.",
 };
 
-/**
- * Root layout component for the application.
- * This component wraps all pages and includes global elements like Header and Footer.
- * @param {Readonly<{ children: React.ReactNode }>} props - Props for the component.
- * @returns {JSX.Element} The root layout structure.
- */
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -45,11 +40,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${firaCode.className} bg-[#282C33] text-[#ABB2BF]`}>
       <body className="bg-[#282C33] text-[#ABB2BF]">
-        <InteractiveBackground />
+        <Spotlight />
+        <LiquidBackground />
         <MagneticCursor />
         <Header />
         <PageTransition>
-        <main className="min-h-screen">{children}</main>
+          <main className="min-h-screen">{children}</main>
         </PageTransition>
         <Footer />
         <ThemeCustomizer />

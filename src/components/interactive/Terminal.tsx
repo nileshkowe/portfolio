@@ -21,7 +21,7 @@ export function InteractiveTerminal() {
     { type: 'output', text: '🚀 Welcome to Nilesh\'s Interactive Terminal' },
     { type: 'output', text: 'Type "help" to see available commands' }
   ])
-  const [isTyping, setIsTyping] = useState(false)
+
   const inputRef = useRef<HTMLInputElement>(null)
 
   // Available commands with their responses
@@ -29,7 +29,7 @@ export function InteractiveTerminal() {
     help: () => [
       'Available commands:',
       '• about - Learn about me',
-      '• skills - View my technical skills',  
+      '• skills - View my technical skills',
       '• projects - See my latest projects',
       '• contact - Get my contact info',
       '• clear - Clear terminal',
@@ -83,7 +83,7 @@ export function InteractiveTerminal() {
       '📖 Following latest industry trends',
       '🎯 Focus on practical, hands-on experience'
     ],
-    clear: () => { 
+    clear: () => {
       setHistory([])
       return []
     }
@@ -96,7 +96,7 @@ export function InteractiveTerminal() {
     const command = cmd.toLowerCase().trim()
     const output = commands[command as keyof typeof commands] || (() => [`Command not found: ${cmd}. Type "help" for available commands.`])
     const result = output()
-    
+
     setHistory(prev => [
       ...prev,
       { type: 'command', text: `$ ${cmd}` },
@@ -150,26 +150,25 @@ export function InteractiveTerminal() {
         </div>
         <span className="text-gray-400 text-xs ml-2">nilesh@portfolio:~</span>
       </div>
-      
+
       {/* Terminal output */}
-      <div 
+      <div
         id="terminal-output"
         className="space-y-1 max-h-64 overflow-y-auto mb-4 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800"
       >
         {history.map((item, index) => (
-          <div 
-            key={index} 
-            className={`${
-              item.type === 'command' 
-                ? 'text-primary font-semibold' 
+          <div
+            key={index}
+            className={`${item.type === 'command'
+                ? 'text-primary font-semibold'
                 : 'text-gray-300'
-            } break-words`}
+              } break-words`}
           >
             {item.text}
           </div>
         ))}
       </div>
-      
+
       {/* Terminal input */}
       <form onSubmit={handleSubmit} className="flex items-center">
         <span className="text-primary mr-2 font-semibold">$</span>

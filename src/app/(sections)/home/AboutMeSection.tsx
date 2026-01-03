@@ -9,6 +9,7 @@ import { useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, Code, Brain, Sparkles } from 'lucide-react'
+import Magnet from '@/components/ui/Magnet'
 
 interface AboutMeSectionProps {
   bioParagraphs?: string[]
@@ -100,25 +101,23 @@ const AboutMeSection: React.FC<AboutMeSectionProps> = ({
                 <motion.p
                   key={index}
                   variants={itemVariants}
-                  className={`text-secondary leading-relaxed ${
-                    index === 0 ? 'text-2xl font-medium text-white' : 'text-base'
-                  }`}
+                  className={`text-secondary leading-relaxed ${index === 0 ? 'text-2xl font-medium text-white' : 'text-base'
+                    }`}
                 >
                   {paragraph}
                 </motion.p>
               ))}
 
               <motion.div variants={itemVariants} className="pt-6">
-                <Link
-                  href={readMoreLink}
-                  className="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary font-medium rounded-lg hover:bg-primary/10 transition-all duration-300 group"
-                >
-                  Read more
-                  <ArrowRight 
-                    size={18} 
-                    className="group-hover:translate-x-1 transition-transform duration-300" 
-                  />
-                </Link>
+                <Magnet padding={50} magnetStrength={5}>
+                  <Link
+                    href="/about"
+                    className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-all duration-300"
+                  >
+                    More About Me
+                    <ArrowRight size={20} />
+                  </Link>
+                </Magnet>
               </motion.div>
             </motion.div>
 

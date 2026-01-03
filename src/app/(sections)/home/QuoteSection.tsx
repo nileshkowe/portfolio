@@ -4,22 +4,29 @@
  */
 'use client'
 
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import { Quote } from 'lucide-react'
-import * as loggerModule from '@/logger'
+import SplitText from '@/components/ui/SplitText'
 
 interface QuoteSectionProps {
   quote?: string
   author?: string
 }
 
-const QuoteSection: React.FC<QuoteSectionProps> = ({ 
-  quote = "With great power comes great electricity bill", 
+const QuoteSection: React.FC<QuoteSectionProps> = ({
+  quote = "With great power comes great electricity bill",
   author = "Dr. Who"
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" })
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  })
+
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -50])
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, 50])
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -59,15 +66,17 @@ const QuoteSection: React.FC<QuoteSectionProps> = ({
         >
           {/* Quote Container */}
           <div className="relative">
-            {/* Background Quote Icons */}
+            {/* Background Quote Icons with Parallax */}
             <motion.div
+              style={{ y: y1 }}
               variants={iconVariants}
               className="absolute -top-6 -left-6 text-primary/20"
             >
               <Quote size={48} />
             </motion.div>
-            
+
             <motion.div
+              style={{ y: y2 }}
               variants={iconVariants}
               className="absolute -bottom-6 -right-6 text-primary/20 rotate-180"
             >
@@ -81,14 +90,15 @@ const QuoteSection: React.FC<QuoteSectionProps> = ({
             >
               {/* Gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 rounded-2xl" />
-              
+
               {/* Quote Text */}
-              <motion.blockquote
-                variants={quoteVariants}
-                className="text-2xl md:text-3xl lg:text-4xl font-medium text-white text-center leading-relaxed relative z-10 mb-8"
-              >
-                "{quote}"
-              </motion.blockquote>
+              <div className="relative z-10 mb-8 text-center">
+                <SplitText
+                  text={`"${quote}"`}
+                  className="text-2xl md:text-3xl lg:text-4xl font-medium text-white leading-relaxed"
+                  delay={50}
+                />
+              </div>
 
               {/* Divider Line */}
               <motion.div
@@ -110,12 +120,12 @@ const QuoteSection: React.FC<QuoteSectionProps> = ({
 
               {/* Decorative Elements */}
               <motion.div
-                animate={{ 
+                animate={{
                   scale: [1, 1.1, 1],
                   opacity: [0.1, 0.2, 0.1]
                 }}
-                transition={{ 
-                  duration: 4, 
+                transition={{
+                  duration: 4,
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}

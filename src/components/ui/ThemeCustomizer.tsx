@@ -1,181 +1,164 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Palette, Sparkles, X } from 'lucide-react'
+import { Palette, X } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
-/**
- * Theme configuration interface
- */
 interface Theme {
   name: string
   primary: string
   accent: string
   description: string
+  id: string
 }
 
-/**
- * Available themes for the portfolio
- */
 const themes: Theme[] = [
-  { 
-    name: 'Purple Haze', 
-    primary: '#C778DD', 
+  {
+    id: 'purple',
+    name: 'Purple Haze',
+    primary: '#C778DD',
     accent: '#61DAFB',
     description: 'Original portfolio theme'
   },
-  { 
-    name: 'Cyber Blue', 
-    primary: '#00F5FF', 
+  {
+    id: 'blue',
+    name: 'Cyber Blue',
+    primary: '#00F5FF',
     accent: '#FF6B6B',
     description: 'Futuristic blue theme'
   },
-  { 
-    name: 'Matrix Green', 
-    primary: '#00FF00', 
+  {
+    id: 'green',
+    name: 'Matrix Green',
+    primary: '#00FF00',
     accent: '#FFD700',
     description: 'Classic matrix style'
   },
-  { 
-    name: 'Sunset Orange', 
-    primary: '#FF8C00', 
+  {
+    id: 'orange',
+    name: 'Sunset Orange',
+    primary: '#FF8C00',
     accent: '#FF1493',
     description: 'Warm sunset colors'
   },
-  { 
-    name: 'Neon Pink', 
-    primary: '#FF69B4', 
+  {
+    id: 'pink',
+    name: 'Neon Pink',
+    primary: '#FF69B4',
     accent: '#00CED1',
     description: 'Vibrant neon theme'
   },
-  { 
-    name: 'Ocean Deep', 
-    primary: '#1E90FF', 
+  {
+    id: 'ocean',
+    name: 'Ocean Deep',
+    primary: '#1E90FF',
     accent: '#FFD700',
     description: 'Deep ocean blues'
   }
 ]
 
-/**
- * Theme Customizer component
- * Allows users to customize the portfolio color scheme
- */
 export function ThemeCustomizer() {
   const [isOpen, setIsOpen] = useState(false)
-  const [currentTheme, setCurrentTheme] = useState(0)
+  const [activeTheme, setActiveTheme] = useState('purple')
 
-  /**
-   * Apply theme to the document
-   */
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('portfolio-theme')
+    if (savedTheme) {
+      const theme = themes.find(t => t.id === savedTheme)
+      if (theme) {
+        setActiveTheme(theme.id)
+        applyTheme(theme)
+      }
+    }
+  }, [])
+
   const applyTheme = (theme: Theme) => {
-    document.documentElement.style.setProperty('--color-primary', theme.primary)
-    document.documentElement.style.setProperty('--color-accent', theme.accent)
-    
-    // Store theme preference
-    localStorage.setItem('portfolio-theme', theme.name)
+    const root = document.documentElement
+    root.style.setProperty('--primary', theme.primary)
+    root.style.setProperty('--color-primary', theme.primary)
+    root.style.setProperty('--accent', theme.accent)
+    root.style.setProperty('--color-accent', theme.accent)
+
+    // Also update generic colors if needed
+    // root.style.setProperty('--ring', theme.primary)
+
+    localStorage.setItem('portfolio-theme', theme.id)
   }
 
-  /**
-   * Handle theme selection
-   */
-  const handleThemeSelect = (index: number) => {
-    setCurrentTheme(index)
-    applyTheme(themes[index])
+  const handleThemeSelect = (theme: Theme) => {
+    setActiveTheme(theme.id)
+    applyTheme(theme)
   }
 
   return (
-    <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-50">
-      {/* Theme toggle button */}
-      <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={() => setIsOpen(!isOpen)}
-        className="p-3 bg-primary/20 backdrop-blur-sm rounded-full text-primary hover:bg-primary/30 transition-colors border border-primary/30"
-        title="Customize theme"
-      >
-        <Palette size={24} />
-      </motion.button>
-
-      {/* Theme panel */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: 100, scale: 0.9 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: 100, scale: 0.9 }}
-            className="absolute right-16 top-0 bg-darker/95 backdrop-blur-sm border border-secondary/20 rounded-xl p-4 w-72 shadow-2xl"
+    <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
+      <AnimatePresence mode="wait">
+        {!isOpen ? (
+          <motion.button
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setIsOpen(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-black/40 backdrop-blur-md border border-white/10 rounded-full shadow-2xl hover:bg-black/60 transition-colors group"
           >
-            {/* Header */}
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-white font-semibold flex items-center gap-2">
-                <Sparkles size={18} />
-                Customize Theme
-              </h3>
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setIsOpen(false)}
-                className="p-1 text-secondary hover:text-white transition-colors"
-              >
-                <X size={16} />
-              </motion.button>
+            <Palette className="w-5 h-5 text-white group-hover:text-primary transition-colors" />
+            <span className="text-sm font-medium text-white/80 group-hover:text-white">Customize Theme</span>
+          </motion.button>
+        ) : (
+          <motion.div
+            initial={{ y: 20, opacity: 0, scale: 0.9 }}
+            animate={{ y: 0, opacity: 1, scale: 1 }}
+            exit={{ y: 20, opacity: 0, scale: 0.9 }}
+            className="flex items-center gap-2 p-2 bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl"
+          >
+            <div className="flex items-center gap-1 pr-2 border-r border-white/10">
+              <span className="text-xs font-medium text-white/50 px-2">Themes</span>
             </div>
 
-            {/* Theme options */}
-            <div className="space-y-3 max-h-80 overflow-y-auto">
-              {themes.map((theme, index) => (
+            <div className="flex items-center gap-2">
+              {themes.map((theme) => (
                 <motion.button
-                  key={index}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => handleThemeSelect(index)}
-                  className={`w-full p-3 rounded-lg border transition-all text-left ${
-                    currentTheme === index
-                      ? 'border-primary bg-primary/10'
-                      : 'border-secondary/20 hover:border-primary/50'
-                  }`}
+                  key={theme.id}
+                  onClick={() => handleThemeSelect(theme)}
+                  className={cn(
+                    "relative w-8 h-8 rounded-full border-2 transition-all",
+                    activeTheme === theme.id
+                      ? "border-white scale-110"
+                      : "border-transparent hover:scale-110 opacity-70 hover:opacity-100"
+                  )}
+                  style={{ background: `linear-gradient(135deg, ${theme.primary}, ${theme.accent})` }}
+                  title={theme.name}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.9 }}
                 >
-                  <div className="flex items-center gap-3">
-                    {/* Color preview */}
-                    <div className="flex gap-1">
-                      <div 
-                        className="w-4 h-4 rounded-full border border-white/20" 
-                        style={{ backgroundColor: theme.primary }}
-                      />
-                      <div 
-                        className="w-4 h-4 rounded-full border border-white/20"
-                        style={{ backgroundColor: theme.accent }}
-                      />
-                    </div>
-                    
-                    {/* Theme info */}
-                    <div className="flex-1">
-                      <div className="text-white text-sm font-medium">
-                        {theme.name}
-                      </div>
-                      <div className="text-secondary/70 text-xs">
-                        {theme.description}
-                      </div>
-                    </div>
-                    
-                    {/* Active indicator */}
-                    {currentTheme === index && (
-                      <div className="w-2 h-2 bg-primary rounded-full"></div>
-                    )}
-                  </div>
+                  {activeTheme === theme.id && (
+                    <motion.div
+                      layoutId="active-theme"
+                      className="absolute inset-0 flex items-center justify-center"
+                    >
+                      <div className="w-2 h-2 bg-white rounded-full shadow-sm" />
+                    </motion.div>
+                  )}
                 </motion.button>
               ))}
             </div>
 
-            {/* Footer */}
-            <div className="pt-3 border-t border-secondary/20 mt-4">
-              <p className="text-xs text-secondary/70">
-                Theme preference will be saved for your next visit
-              </p>
+            <div className="pl-2 border-l border-white/10">
+              <motion.button
+                whileHover={{ scale: 1.1, rotate: 90 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setIsOpen(false)}
+                className="p-1.5 text-white/50 hover:text-white transition-colors rounded-full hover:bg-white/10"
+              >
+                <X size={16} />
+              </motion.button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
     </div>
   )
-} 
+}

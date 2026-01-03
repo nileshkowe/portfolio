@@ -30,29 +30,30 @@ for (let i = 0; i <= 10; i++) {
   const runCode = () => {
     setIsRunning(true)
     setOutput('')
-    
+
     try {
       // Capture console.log output
       const originalLog = console.log
       const logs: string[] = []
-      
+
       console.log = (...args) => {
-        logs.push(args.map(arg => 
+        logs.push(args.map(arg =>
           typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
         ).join(' '))
         originalLog.apply(console, args)
       }
-      
+
       // Execute the code
-      const result = eval(code)
-      
+      // Execute the code
+      eval(code)
+
       // Restore console.log
       console.log = originalLog
-      
+
       // Set output
       const outputText = logs.join('\n')
       setOutput(outputText || 'Code executed successfully!')
-      
+
     } catch (error) {
       setOutput(`Error: ${error}`)
     } finally {
@@ -130,7 +131,7 @@ for (let i = 0; i <= 10; i++) {
           </motion.button>
         </div>
       </div>
-      
+
       {/* Code and Output */}
       <div className="grid grid-cols-1 lg:grid-cols-2">
         {/* Code Editor */}
@@ -146,7 +147,7 @@ for (let i = 0; i <= 10; i++) {
             JavaScript
           </div>
         </div>
-        
+
         {/* Output */}
         <div className="bg-gray-900 p-4 border-l border-secondary/20">
           <div className="text-sm text-gray-400 mb-2 flex items-center gap-2">
@@ -158,7 +159,7 @@ for (let i = 0; i <= 10; i++) {
           </pre>
         </div>
       </div>
-      
+
       {/* Footer */}
       <div className="p-4 border-t border-secondary/20 bg-gray-900/50">
         <p className="text-xs text-secondary/70">

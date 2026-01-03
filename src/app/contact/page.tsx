@@ -8,11 +8,12 @@ import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, Mail, Phone, MapPin, Clock, Send, Github, Linkedin, Twitter, MessageSquare, Calendar, CheckCircle } from 'lucide-react'
+import Magnet from '@/components/ui/Magnet'
 
 const ContactPage: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" })
-  
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -34,13 +35,13 @@ const ContactPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
+
     // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 2000))
-    
+
     setIsSubmitting(false)
     setIsSubmitted(true)
-    
+
     // Reset form after 3 seconds
     setTimeout(() => {
       setIsSubmitted(false)
@@ -146,7 +147,7 @@ const ContactPage: React.FC = () => {
     '£1,600 - £4,000',
     '₹5,00,000+',
     '$5,000+',
-    'Let\'s discuss'
+    'Let&apos;s discuss'
   ]
 
   return (
@@ -166,13 +167,15 @@ const ContactPage: React.FC = () => {
             transition={{ duration: 0.6 }}
             className="mb-8"
           >
-            <Link 
-              href="/"
-              className="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors duration-200"
-            >
-              <ArrowLeft size={20} />
-              Back to Home
-            </Link>
+            <Magnet padding={50} magnetStrength={5}>
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors duration-200"
+              >
+                <ArrowLeft size={20} />
+                Back to Home
+              </Link>
+            </Magnet>
           </motion.div>
 
           <motion.div
@@ -185,7 +188,7 @@ const ContactPage: React.FC = () => {
               <span className="text-primary">#</span>contact-me
             </h1>
             <p className="text-xl text-secondary max-w-3xl mx-auto leading-relaxed">
-              Ready to bring your ideas to life? Let&apos;s discuss your project and explore how we can work together 
+              Ready to bring your ideas to life? Let&apos;s discuss your project and explore how we can work together
               to create something extraordinary.
             </p>
           </motion.div>
@@ -217,7 +220,7 @@ const ContactPage: React.FC = () => {
                       whileHover={{ y: -5, scale: 1.02 }}
                       className="block bg-darker/50 backdrop-blur-sm border border-secondary/20 rounded-xl p-6 hover:border-primary/50 transition-all duration-300 text-center"
                     >
-                      <div 
+                      <div
                         className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
                         style={{ backgroundColor: `${method.color}20` }}
                       >
@@ -238,7 +241,7 @@ const ContactPage: React.FC = () => {
               <motion.div variants={itemVariants}>
                 <div className="bg-darker/50 backdrop-blur-sm border border-secondary/20 rounded-xl p-8">
                   <h3 className="text-2xl font-semibold text-white mb-6">Send me a message</h3>
-                  
+
                   {isSubmitted ? (
                     <motion.div
                       initial={{ opacity: 0, scale: 0.8 }}
@@ -247,15 +250,12 @@ const ContactPage: React.FC = () => {
                     >
                       <CheckCircle size={64} className="text-green-500 mx-auto mb-4" />
                       <h4 className="text-2xl font-bold text-white mb-2">Message Sent!</h4>
-                      <p className="text-secondary">Thank you for reaching out. I'll get back to you soon!</p>
+                      <p className="text-secondary">Thank you for reaching out. I&apos;ll get back to you soon!</p>
                     </motion.div>
                   ) : (
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <motion.div variants={itemVariants}>
-                          <label htmlFor="name" className="block text-secondary text-sm font-medium mb-2">
-                            Your Name *
-                          </label>
+                        <motion.div variants={itemVariants} className="relative">
                           <input
                             type="text"
                             id="name"
@@ -263,15 +263,18 @@ const ContactPage: React.FC = () => {
                             value={formData.name}
                             onChange={handleInputChange}
                             required
-                            className="w-full px-4 py-3 bg-dark/50 border border-secondary/30 rounded-lg text-white placeholder-secondary/50 focus:border-primary focus:outline-none transition-colors duration-200"
+                            className="peer w-full px-4 py-3 bg-dark/50 border border-secondary/30 rounded-lg text-white placeholder-transparent focus:border-primary focus:outline-none transition-colors duration-200"
                             placeholder="Enter your name"
                           />
+                          <label
+                            htmlFor="name"
+                            className="absolute left-4 -top-2.5 bg-dark px-1 text-sm text-secondary transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-secondary/50 peer-placeholder-shown:top-3 peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-primary"
+                          >
+                            Your Name *
+                          </label>
                         </motion.div>
 
-                        <motion.div variants={itemVariants}>
-                          <label htmlFor="email" className="block text-secondary text-sm font-medium mb-2">
-                            Email Address *
-                          </label>
+                        <motion.div variants={itemVariants} className="relative">
                           <input
                             type="email"
                             id="email"
@@ -279,9 +282,15 @@ const ContactPage: React.FC = () => {
                             value={formData.email}
                             onChange={handleInputChange}
                             required
-                            className="w-full px-4 py-3 bg-dark/50 border border-secondary/30 rounded-lg text-white placeholder-secondary/50 focus:border-primary focus:outline-none transition-colors duration-200"
+                            className="peer w-full px-4 py-3 bg-dark/50 border border-secondary/30 rounded-lg text-white placeholder-transparent focus:border-primary focus:outline-none transition-colors duration-200"
                             placeholder="your.email@example.com"
                           />
+                          <label
+                            htmlFor="email"
+                            className="absolute left-4 -top-2.5 bg-dark px-1 text-sm text-secondary transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-secondary/50 peer-placeholder-shown:top-3 peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-primary"
+                          >
+                            Email Address *
+                          </label>
                         </motion.div>
                       </div>
 
@@ -360,20 +369,28 @@ const ContactPage: React.FC = () => {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         disabled={isSubmitting}
-                        className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                        className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 overflow-hidden relative"
                       >
                         {isSubmitting ? (
                           <>
+                            <motion.div
+                              initial={{ x: 0, y: 0, opacity: 1 }}
+                              animate={{ x: 100, y: -100, opacity: 0 }}
+                              transition={{ duration: 0.5 }}
+                              className="absolute"
+                            >
+                              <Send size={20} />
+                            </motion.div>
                             <motion.div
                               animate={{ rotate: 360 }}
                               transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                               className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
                             />
-                            Sending...
+                            <span className="ml-2">Sending...</span>
                           </>
                         ) : (
                           <>
-                            <Send size={20} />
+                            <Send size={20} className="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
                             Send Message
                           </>
                         )}
@@ -392,7 +409,7 @@ const ContactPage: React.FC = () => {
                     <h3 className="text-xl font-semibold text-white">Current Availability</h3>
                   </div>
                   <p className="text-secondary mb-4">
-                    I&apos;m currently available for new projects and collaborations. 
+                    I&apos;m currently available for new projects and collaborations.
                     I typically respond to inquiries within 24-48 hours.
                   </p>
                   <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/20 text-green-400 rounded-lg border border-green-500/30">
@@ -416,7 +433,7 @@ const ContactPage: React.FC = () => {
                           whileHover={{ scale: 1.05, y: -2 }}
                           className="flex items-center gap-3 p-4 bg-dark/30 rounded-lg hover:bg-dark/50 transition-all duration-300 border border-secondary/10 hover:border-primary/30"
                         >
-                          <div 
+                          <div
                             className="w-10 h-10 rounded-lg flex items-center justify-center"
                             style={{ backgroundColor: `${social.color}20` }}
                           >
