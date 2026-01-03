@@ -63,7 +63,7 @@ export function InteractiveTerminal() {
     contact: () => [
       '📧 Email: contact@nilesh.dev',
       '💼 GitHub: github.com/nileshkowe',
-      '🔗 LinkedIn: Connect with me',
+      '🔗 LinkedIn: linkedin.com/in/nilesh-kowe-618735204',
       '💬 Always open for collaborations!',
       '🌐 Portfolio: nilesh.dev',
       '📱 Available for freelance opportunities'

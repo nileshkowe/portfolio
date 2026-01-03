@@ -114,15 +114,17 @@ const HeroSection: React.FC = () => {
 
             <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
               <Magnet padding={50} magnetStrength={3}>
-                <motion.button
+                <motion.a
+                  href="/documents/NILESH_CV_26.pdf"
+                  download="NILESH_CV_26.pdf"
                   data-magnetic
                   whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(199, 120, 221, 0.5)" }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-all duration-300 flex items-center gap-2"
+                  className="px-8 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-all duration-300 flex items-center gap-2 cursor-pointer"
                 >
                   <Download size={20} />
                   Download CV
-                </motion.button>
+                </motion.a>
               </Magnet>
 
               <Magnet padding={50} magnetStrength={3}>
@@ -142,7 +144,7 @@ const HeroSection: React.FC = () => {
             <motion.div variants={itemVariants} className="flex gap-4 pt-4">
               {[
                 { icon: Github, href: "https://github.com/nileshkowe" },
-                { icon: Linkedin, href: "#" }
+                { icon: Linkedin, href: "https://www.linkedin.com/in/nilesh-kowe-618735204/" }
               ].map((social, index) => (
                 <motion.a
                   key={index}
