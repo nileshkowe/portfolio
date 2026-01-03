@@ -111,7 +111,7 @@ const AboutMeSection: React.FC<AboutMeSectionProps> = ({
               <motion.div variants={itemVariants} className="pt-6">
                 <Magnet padding={50} magnetStrength={5}>
                   <Link
-                    href="/about"
+                    href={readMoreLink}
                     className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-all duration-300"
                   >
                     More About Me

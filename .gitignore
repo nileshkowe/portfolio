@@ -39,3 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# project-specific files and directories
+[project]/
+backup_script.py
+Portfolio Website Full Revamp Guide.md
+Portfolio Website Full Revamp Plan (Next.js 15 + R.md
+Revamp stage 2.md
+backup_txt/
+docs/
