@@ -13,14 +13,14 @@ Personal portfolio website for Nilesh, a Software & AI/ML Engineer. Built with *
 | Framework | Next.js 15.3.x (App Router, Turbopack dev) |
 | Language | TypeScript 5 (strict mode) |
 | UI Library | React 19 |
-| Styling | Tailwind CSS v4 + CSS variables (OKLCH color space) |
+| Styling | Tailwind CSS v4 + CSS variables (HEX in `@theme`, OKLCH in `:root`/`.dark`) |
 | UI Primitives | shadcn/ui (New York style) + Radix UI |
 | Animations | Framer Motion, GSAP, React Spring, Tailwind Animate |
 | 3D | Three.js + React Three Fiber + Drei |
 | Icons | Lucide React |
 | Code Editor | Monaco Editor |
 | Forms | React Hook Form |
-| Font | Fira Code (monospace, Google Fonts) |
+| Fonts | Fira Code (primary body, Google Fonts), Geist Sans/Mono (CSS theme fallbacks) |
 
 ## Commands
 
@@ -65,7 +65,7 @@ src/
 │   │   ├── button.tsx, card.tsx, input.tsx, etc.  # shadcn/ui
 │   │   ├── Magnet.tsx, MagneticCursor.tsx         # Cursor effects
 │   │   ├── SplitText.tsx, Spotlight.tsx           # Animation components
-│   │   ├── SpotlightCard.tsx, TiltedCard.tsx      # Card variants
+│   │   ├── SpotlightCard.tsx/.css, TiltedCard.tsx/.css  # Card variants (with companion CSS)
 │   │   └── ThemeCustomizer.tsx                    # Multi-theme switcher
 │   ├── magicui/                # Magic UI animated components
 │   ├── widgets/                # GitHubActivity widget
@@ -79,6 +79,11 @@ public/
 ├── icons/                      # SVG icons
 └── images/                     # Project screenshots, hero images
 logger.js                       # Server-side file logger (root level)
+logs/                           # Log output directory (created by logger.js)
+docs/
+└── ai-outputs/                 # AI-generated codebase analysis & audit docs
+.agent/
+└── rules/                      # Agent rule files (ui-rules.md, mcp.md)
 ```
 
 ## Key Conventions
@@ -99,11 +104,11 @@ Defined in `tsconfig.json`:
 ### Styling
 
 - **Tailwind CSS v4** configured via `@tailwindcss/postcss` (not a `tailwind.config` file).
-- Theme tokens declared in `src/app/globals.css` using `@theme` and CSS custom properties with OKLCH color space.
+- Theme tokens declared in `src/app/globals.css` using the `@theme` directive. Brand colors in `@theme` use **HEX** values; the `:root` and `.dark` CSS variable blocks use **OKLCH** color space.
 - Brand colors: primary `#C778DD` (purple), secondary `#ABB2BF` (gray), accent `#61DAFB` (cyan), dark `#282C33`.
 - Custom keyframe animations defined in `globals.css`: `fadeIn`, `slideUp`, `scaleIn`, `glow`.
 - Light/dark mode support via `.dark` class and CSS variable overrides.
-- Body font is Fira Code monospace applied globally.
+- Primary body font is Fira Code monospace (imported via `next/font/google` in layout). The CSS theme also defines `--font-geist-sans` and `--font-geist-mono` variables.
 
 ### Data
 
@@ -173,3 +178,5 @@ Create `src/app/<route>/page.tsx`. It will automatically inherit the root layout
 - **Server vs Client components** — the root layout uses client components for interactivity (3D, cursor, transitions). New components should default to server unless they need client features.
 - **No environment variables** — social links and contact info are currently hardcoded. No `.env` files are needed to run the project.
 - **Logger at root** — `logger.js` is a server-side file logger at the project root (not in `src/`). It writes to a `logs/` directory.
+- **Unused hooks alias** — `components.json` defines `"hooks": "@/hooks"`, but `src/hooks/` does not exist yet. Create it if you add custom hooks, or the alias will resolve to nothing.
+- **Revamp docs at root** — Several planning markdown files exist at the project root (`Portfolio Website Full Revamp Guide.md`, `Revamp stage 2.md`, etc.) and in `docs/ai-outputs/`. These are reference material, not application code.
