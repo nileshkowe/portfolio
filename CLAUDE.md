@@ -4,15 +4,17 @@ This file provides guidance for AI assistants working on this codebase.
 
 ## Project Overview
 
-Personal portfolio website for Nilesh, a Software & AI/ML Engineer. Built with **Next.js 15** (App Router) and **React 19** using **TypeScript**. Features advanced animations, 3D backgrounds, interactive components, and a multi-theme system.
+Personal portfolio website for Nilesh, a Software & AI/ML Engineer. Built with **Next.js** (App Router) and **React** using **TypeScript**. Features advanced animations, 3D backgrounds, interactive components, and a multi-theme system.
 
 ## Tech Stack
 
+> Exact versions are in `package.json`. Update this section when major dependencies change.
+
 | Layer | Technology |
 |-------|-----------|
-| Framework | Next.js 15.3.x (App Router, Turbopack dev) |
-| Language | TypeScript 5 (strict mode) |
-| UI Library | React 19 |
+| Framework | Next.js (App Router, Turbopack dev) |
+| Language | TypeScript (strict mode) |
+| UI Library | React |
 | Styling | Tailwind CSS v4 + CSS variables (HEX in `@theme`, OKLCH in `:root`/`.dark`) |
 | UI Primitives | shadcn/ui (New York style) + Radix UI |
 | Animations | Framer Motion, GSAP, React Spring, Tailwind Animate |
@@ -31,7 +33,7 @@ npm run start    # Start production server
 npm run lint     # ESLint (next/core-web-vitals + next/typescript)
 ```
 
-There is no test suite configured. No unit/integration/e2e test runner exists.
+No test suite is configured at time of writing. Check `package.json` for a `test` script before assuming tests are unavailable.
 
 ## Project Structure
 
@@ -172,7 +174,7 @@ Create `src/app/<route>/page.tsx`. It will automatically inherit the root layout
 
 ## Things to Watch Out For
 
-- **No testing infrastructure** — there are no tests. Be extra careful with changes and verify the build passes (`npm run build`).
+- **No testing infrastructure** — check `package.json` for a `test` script; if none exists, be extra careful with changes and verify the build passes (`npm run build`).
 - **Multiple animation libraries** — avoid mixing animation systems within a single component. Pick one.
 - **Tailwind v4 syntax** — uses `@theme` directive and `@tailwindcss/postcss`, not the older `tailwind.config.js` approach.
 - **Server vs Client components** — the root layout uses client components for interactivity (3D, cursor, transitions). New components should default to server unless they need client features.
