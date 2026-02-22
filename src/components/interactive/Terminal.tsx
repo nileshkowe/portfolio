@@ -37,10 +37,9 @@ export function InteractiveTerminal() {
       '• education - See my background'
     ],
     about: () => [
-      '👨‍💻 Software Developer & AI/ML Engineer',
-      '🎯 3+ years of experience',
-      '🌟 50+ projects completed',
-      '💡 Passionate about innovative solutions',
+      '👨‍💻 Software Developer at Pixonate',
+      '🎯 1.6 years of professional experience',
+      '💡 Started as an intern, grew through hard work',
       '🔬 Specialized in React, Next.js, Python, and AI/ML',
       '🌍 Based in India, working globally'
     ],
@@ -61,20 +60,18 @@ export function InteractiveTerminal() {
       '🚀 Focus on performance and user experience'
     ],
     contact: () => [
-      '📧 Email: contact@nilesh.dev',
+      '📧 Email: nileshkowe28@gmail.com',
       '💼 GitHub: github.com/nileshkowe',
       '🔗 LinkedIn: linkedin.com/in/nilesh-kowe-618735204',
-      '💬 Always open for collaborations!',
-      '🌐 Portfolio: nilesh.dev',
-      '📱 Available for freelance opportunities'
+      '🐦 Twitter: x.com/nilesh_kowe',
+      '💬 Always open for collaborations!'
     ],
     experience: () => [
-      '💼 3+ Years in Software Development',
+      '💼 Software Developer at Pixonate (1.6 years)',
+      '🚀 Started as an unpaid intern, grew to current role',
       '🎯 Full-Stack Development',
       '🤖 AI/ML Engineering',
-      '🌐 Web Application Development',
-      '📱 Mobile App Development (learning)',
-      '☁️ Cloud & DevOps experience'
+      '🌐 Web Application Development'
     ],
     education: () => [
       '🎓 Computer Science Background',

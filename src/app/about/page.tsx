@@ -38,27 +38,33 @@ const AboutPage: React.FC = () => {
 
   const journey = [
     {
-      year: "2024",
-      title: "Software Developer & AI/ML Engineer",
-      description: "Started professional journey in software development and AI/ML engineering",
+      year: "2024 - Present",
+      title: "Software Developer at Pixonate",
+      description: "Grew from intern to developer through hard work. Building full-stack web applications and AI/ML solutions.",
       type: "current"
     },
     {
       year: "2024",
+      title: "Joined Pixonate as Intern",
+      description: "Started as an unpaid intern, proved myself and earned a full-time position.",
+      type: "milestone"
+    },
+    {
+      year: "2024",
       title: "Graduated",
-      description: "Completed formal education and began career in technology",
+      description: "Completed formal education and began career in technology.",
       type: "milestone"
     },
     {
       year: "2023",
       title: "Student Projects",
-      description: "Worked on various academic and personal projects in web development and AI",
+      description: "Worked on various academic and personal projects in web development and AI.",
       type: "education"
     },
     {
       year: "2022",
       title: "Learning Journey",
-      description: "Started learning programming and exploring technology",
+      description: "Started learning programming and exploring technology.",
       type: "education"
     }
   ]
@@ -155,10 +161,11 @@ const AboutPage: React.FC = () => {
                 </h2>
                 <div className="space-y-4 text-secondary leading-relaxed">
                   <p>
-                    I&apos;m a passionate Software Developer and AI/ML Engineer with 1 year of experience
-                    building robust web applications and intelligent systems. My journey in technology started
-                    with a curiosity about how things work and has evolved into a deep passion for creating
-                    solutions that make a real impact.
+                    I&apos;m a Software Developer and AI/ML Engineer with 1.6 years of professional experience
+                    at Pixonate. I started as an unpaid intern and grew into my current role through
+                    dedication and hard work. My journey in technology started with a curiosity about
+                    how things work and has evolved into a deep passion for creating solutions that
+                    make a real impact.
                   </p>
                   <p>
                     I specialize in full-stack development using modern technologies like React, Next.js,
@@ -179,7 +186,7 @@ const AboutPage: React.FC = () => {
                   </div>
                   <div className="flex items-center gap-2 text-secondary">
                     <Calendar size={18} className="text-primary" />
-                    <span>1 Year Experience</span>
+                    <span>1.6 Years Experience</span>
                   </div>
                 </div>
               </motion.div>

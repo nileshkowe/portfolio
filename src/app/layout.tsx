@@ -40,12 +40,18 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${firaCode.className} bg-[#282C33] text-[#ABB2BF]`}>
       <body className="bg-[#282C33] text-[#ABB2BF]">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-lg focus:outline-none"
+        >
+          Skip to main content
+        </a>
         <Spotlight />
         <LiquidBackground />
         <MagneticCursor />
         <Header />
         <PageTransition>
-          <main className="min-h-screen">{children}</main>
+          <main id="main-content" className="min-h-screen">{children}</main>
         </PageTransition>
         <Footer />
         <ThemeCustomizer />

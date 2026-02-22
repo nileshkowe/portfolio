@@ -171,7 +171,7 @@ const HeroSection: React.FC = () => {
                 <div className="text-secondary">Projects Completed</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-accent">1+</div>
+                <div className="text-3xl font-bold text-accent">1.6+</div>
                 <div className="text-secondary">Years Experience</div>
               </div>
             </motion.div>

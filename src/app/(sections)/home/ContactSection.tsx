@@ -6,7 +6,7 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
-import { Mail, MessageSquare, Send, Github, Linkedin, ArrowRight, Twitter, MessageCircle } from 'lucide-react'
+import { Mail, MessageSquare, Send, Github, Linkedin, ArrowRight, Twitter } from 'lucide-react'
 
 interface ContactDetail {
   id: string
@@ -57,15 +57,8 @@ const getDefaultContactDetails = (emailAddress?: string): ContactDetail[] => [
     id: 'twitter',
     icon: Twitter,
     text: 'Follow on Twitter',
-    href: '#',
+    href: 'https://x.com/nilesh_kowe',
     color: '#1DA1F2'
-  },
-  {
-    id: 'discord',
-    icon: MessageCircle,
-    text: 'Join Discord',
-    href: '#',
-    color: '#7289DA'
   }
 ]
 
