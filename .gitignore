@@ -48,3 +48,12 @@ Portfolio Website Full Revamp Plan (Next.js 15 + R.md
 Revamp stage 2.md
 backup_txt/
 docs/
+
+# IDE and AI tool configs
+.agent/
+.cursor/
+.cursorignore
+CLAUDE.md
+
+# logs
+logs/
