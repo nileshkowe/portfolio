@@ -9,6 +9,7 @@ import Image from 'next/image';
 import * as loggerModule from '@/logger';
 import { useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { Github, Linkedin, Twitter } from 'lucide-react';
 
 /**
  * Props for the Footer component.
@@ -19,8 +20,8 @@ interface FooterProps {
   tagline?: string;
   copyrightYear?: number;
   githubUrl?: string;
-  figmaUrl?: string;
-  discordUrl?: string;
+  linkedinUrl?: string;
+  twitterUrl?: string;
 }
 
 /**
@@ -30,12 +31,12 @@ interface FooterProps {
  */
 const Footer: React.FC<FooterProps> = ({
   developerName = "Nilesh",
-  developerEmail = "contact@nilesh.dev", 
+  developerEmail = "nileshkowe28@gmail.com",
   tagline = "Software Developer & AI/ML Engineer",
   copyrightYear = new Date().getFullYear(),
   githubUrl = "https://github.com/nileshkowe",
-  figmaUrl = "#",
-  discordUrl = "#",
+  linkedinUrl = "https://www.linkedin.com/in/nilesh-kowe-618735204/",
+  twitterUrl = "https://x.com/nilesh_kowe",
 }) => {
   const footerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(footerRef, { once: true, margin: "-100px" });
@@ -106,27 +107,27 @@ const Footer: React.FC<FooterProps> = ({
                 whileHover={{ scale: 1.1, y: -2 }}
                 className="text-secondary hover:text-primary transition-colors"
               >
-                <Image src="/icons/github_social.svg" alt="Github" width={32} height={32} />
+                <Github size={32} />
               </motion.a>
               <motion.a
-                href={figmaUrl}
+                href={linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Figma"
+                aria-label="LinkedIn"
                 whileHover={{ scale: 1.1, y: -2 }}
                 className="text-secondary hover:text-primary transition-colors"
               >
-                <Image src="/icons/figma_social.svg" alt="Figma" width={32} height={32} />
+                <Linkedin size={32} />
               </motion.a>
               <motion.a
-                href={discordUrl}
+                href={twitterUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Discord"
+                aria-label="Twitter"
                 whileHover={{ scale: 1.1, y: -2 }}
                 className="text-secondary hover:text-primary transition-colors"
               >
-                <Image src="/icons/discord_contact.svg" alt="Discord" width={32} height={32} />
+                <Twitter size={32} />
               </motion.a>
             </div>
           </motion.div>

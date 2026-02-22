@@ -7,7 +7,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, Mail, Phone, MapPin, Clock, Send, Github, Linkedin, Twitter, MessageSquare, Calendar, CheckCircle } from 'lucide-react'
+import { ArrowLeft, Mail, Phone, MapPin, Clock, Send, Github, Linkedin, Twitter, Calendar, CheckCircle } from 'lucide-react'
 import Magnet from '@/components/ui/Magnet'
 
 const ContactPage: React.FC = () => {
@@ -116,14 +116,8 @@ const ContactPage: React.FC = () => {
     {
       icon: Twitter,
       name: 'Twitter',
-      href: '#',
+      href: 'https://x.com/nilesh_kowe',
       color: '#98D8C8'
-    },
-    {
-      icon: MessageSquare,
-      name: 'Discord',
-      href: '#',
-      color: '#F7DF1E'
     }
   ]
 
