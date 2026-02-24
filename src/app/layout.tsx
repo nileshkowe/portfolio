@@ -22,13 +22,48 @@ const firaCode = Fira_Code({
   weight: ['400', '500', '700']
 });
 
-/**
- * Metadata for the portfolio website.
- * Title and description can be customized.
- */
+const siteUrl = "https://nileshkowe.vercel.app";
+
 export const metadata: Metadata = {
-  title: "Nilesh - Software & AI/ML Engineer Portfolio",
-  description: "Personal portfolio of Nilesh, showcasing projects in Software Development and AI/ML Engineering.",
+  title: {
+    default: "Nilesh Kowe - Software Developer & AI/ML Engineer",
+    template: "%s | Nilesh Kowe",
+  },
+  description:
+    "Portfolio of Nilesh Kowe — Software Developer at Pixonate with 1.6 years of experience building full-stack web applications and AI/ML solutions.",
+  metadataBase: new URL(siteUrl),
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: siteUrl,
+    siteName: "Nilesh Kowe",
+    title: "Nilesh Kowe - Software Developer & AI/ML Engineer",
+    description:
+      "Software Developer at Pixonate building full-stack web applications and AI/ML solutions with React, Next.js, and Python.",
+    images: [
+      {
+        url: "/images/hero-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Nilesh Kowe - Software Developer & AI/ML Engineer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nilesh Kowe - Software Developer & AI/ML Engineer",
+    description:
+      "Software Developer at Pixonate building full-stack web applications and AI/ML solutions.",
+    creator: "@nilesh_kowe",
+    images: ["/images/hero-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: siteUrl,
+  },
 };
 
 export default function RootLayout({
@@ -39,6 +74,38 @@ export default function RootLayout({
   loggerModule.info("Application root layout rendering");
   return (
     <html lang="en" className={`${firaCode.className} bg-[#282C33] text-[#ABB2BF]`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Nilesh Kowe",
+              url: siteUrl,
+              jobTitle: "Software Developer",
+              worksFor: {
+                "@type": "Organization",
+                name: "Pixonate",
+                url: "https://pixonate.com",
+              },
+              sameAs: [
+                "https://github.com/nileshkowe",
+                "https://www.linkedin.com/in/nilesh-kowe-618735204/",
+                "https://x.com/nilesh_kowe",
+              ],
+              knowsAbout: [
+                "React",
+                "Next.js",
+                "TypeScript",
+                "Python",
+                "AI/ML",
+                "Full-Stack Development",
+              ],
+            }),
+          }}
+        />
+      </head>
       <body className="bg-[#282C33] text-[#ABB2BF]">
         <a
           href="#main-content"
