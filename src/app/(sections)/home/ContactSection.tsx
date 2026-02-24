@@ -6,7 +6,7 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
-import { Mail, MessageSquare, Send, Github, Linkedin, ArrowRight, Twitter } from 'lucide-react'
+import { Mail, MessageSquare, Send, Github, Linkedin, ArrowRight, Twitter, CheckCircle } from 'lucide-react'
 
 interface ContactDetail {
   id: string
@@ -76,6 +76,8 @@ const ContactSection: React.FC<ContactSectionProps> = ({
     message: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -87,11 +89,31 @@ const ContactSection: React.FC<ContactSectionProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    setIsSubmitting(false)
-    // Reset form
-    setFormData({ name: '', email: '', message: '' })
+    setErrorMessage('')
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to send message.')
+      }
+
+      setIsSubmitted(true)
+      setTimeout(() => {
+        setIsSubmitted(false)
+        setFormData({ name: '', email: '', message: '' })
+      }, 3000)
+    } catch (err) {
+      setErrorMessage(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const containerVariants = {
@@ -276,6 +298,11 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                         />
                         Sending...
                       </>
+                    ) : isSubmitted ? (
+                      <>
+                        <CheckCircle size={20} />
+                        Message Sent!
+                      </>
                     ) : (
                       <>
                         <Send size={20} />
@@ -283,6 +310,16 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                       </>
                     )}
                   </motion.button>
+
+                  {errorMessage && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-400 text-sm text-center"
+                    >
+                      {errorMessage}
+                    </motion.p>
+                  )}
                 </form>
               </div>
             </motion.div>

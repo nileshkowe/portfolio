@@ -24,6 +24,7 @@ const ContactPage: React.FC = () => {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -35,18 +36,31 @@ const ContactPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setErrorMessage('')
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
 
-    setIsSubmitting(false)
-    setIsSubmitted(true)
+      const data = await res.json()
 
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false)
-      setFormData({ name: '', email: '', subject: '', message: '', budget: '', timeline: '' })
-    }, 3000)
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to send message.')
+      }
+
+      setIsSubmitted(true)
+      setTimeout(() => {
+        setIsSubmitted(false)
+        setFormData({ name: '', email: '', subject: '', message: '', budget: '', timeline: '' })
+      }, 3000)
+    } catch (err) {
+      setErrorMessage(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const containerVariants = {
@@ -389,6 +403,16 @@ const ContactPage: React.FC = () => {
                           </>
                         )}
                       </motion.button>
+
+                      {errorMessage && (
+                        <motion.p
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="text-red-400 text-sm text-center"
+                        >
+                          {errorMessage}
+                        </motion.p>
+                      )}
                     </form>
                   )}
                 </div>
