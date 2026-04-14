@@ -1,17 +1,24 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 
 /**
  * Magnetic Cursor component that creates an interactive cursor effect
  * Follows mouse movement and responds to interactive elements
+ * Only renders on non-touch (pointer) devices
  */
 export function MagneticCursor() {
   const cursorRef = useRef<HTMLDivElement>(null)
   const followerRef = useRef<HTMLDivElement>(null)
+  const [isTouchDevice, setIsTouchDevice] = useState(true)
 
   useEffect(() => {
+    // Detect touch device — hide custom cursor on mobile/tablet
+    const hasPointer = window.matchMedia('(pointer: fine)').matches
+    setIsTouchDevice(!hasPointer)
+    if (!hasPointer) return
+
     const cursor = cursorRef.current
     const follower = followerRef.current
     if (!cursor || !follower) return
@@ -47,7 +54,7 @@ export function MagneticCursor() {
 
     // Add event listeners
     document.addEventListener('mousemove', moveCursor)
-    
+
     // Add magnetic effect to interactive elements
     const magneticElements = document.querySelectorAll('[data-magnetic]')
     magneticElements.forEach((el) => {
@@ -78,13 +85,15 @@ export function MagneticCursor() {
       document.removeEventListener('mousemove', moveCursor)
       document.removeEventListener('mouseleave', handleMouseLeaveWindow)
       document.removeEventListener('mouseenter', handleMouseEnterWindow)
-      
+
       magneticElements.forEach((el) => {
         el.removeEventListener('mouseenter', handleMouseEnter)
         el.removeEventListener('mouseleave', handleMouseLeave)
       })
     }
   }, [])
+
+  if (isTouchDevice) return null
 
   return (
     <>
@@ -102,4 +111,4 @@ export function MagneticCursor() {
       />
     </>
   )
-} 
+}

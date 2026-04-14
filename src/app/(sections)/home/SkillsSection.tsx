@@ -6,7 +6,7 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { Code, Database, Wrench, Globe, Cpu } from 'lucide-react'
+import { Code, Database, Wrench, Globe, Cpu, Brain } from 'lucide-react'
 
 
 interface Skill {
@@ -33,21 +33,10 @@ const defaultSkillCategories: SkillCategory[] = [
     icon: Code,
     color: '#C778DD',
     skills: [
-      { name: 'TypeScript', proficiency: 'expert' },
       { name: 'Python', proficiency: 'expert' },
+      { name: 'TypeScript', proficiency: 'expert' },
       { name: 'JavaScript', proficiency: 'expert' },
-      { name: 'Lua', proficiency: 'intermediate' }
-    ],
-  },
-  {
-    id: 'databases',
-    title: 'Databases',
-    icon: Database,
-    color: '#61DAFB',
-    skills: [
-      { name: 'PostgreSQL', proficiency: 'advanced' },
-      { name: 'MongoDB', proficiency: 'advanced' },
-      { name: 'SQLite', proficiency: 'intermediate' }
+      { name: 'Kotlin', proficiency: 'intermediate' }
     ],
   },
   {
@@ -59,9 +48,20 @@ const defaultSkillCategories: SkillCategory[] = [
       { name: 'React', proficiency: 'expert' },
       { name: 'Next.js', proficiency: 'expert' },
       { name: 'Flask', proficiency: 'advanced' },
-      { name: 'Express.js', proficiency: 'advanced' },
-      { name: 'Vue', proficiency: 'intermediate' },
-      { name: 'Discord.js', proficiency: 'advanced' }
+      { name: 'Express.js', proficiency: 'advanced' }
+    ],
+  },
+  {
+    id: 'databases',
+    title: 'Databases',
+    icon: Database,
+    color: '#61DAFB',
+    skills: [
+      { name: 'PostgreSQL', proficiency: 'advanced' },
+      { name: 'MongoDB', proficiency: 'advanced' },
+      { name: 'SQLite', proficiency: 'intermediate' },
+      { name: 'Supabase', proficiency: 'advanced' },
+      { name: 'MySQL', proficiency: 'intermediate' }
     ],
   },
   {
@@ -74,22 +74,41 @@ const defaultSkillCategories: SkillCategory[] = [
       { name: 'VSCode', proficiency: 'expert' },
       { name: 'Docker', proficiency: 'advanced' },
       { name: 'Linux', proficiency: 'advanced' },
-      { name: 'Figma', proficiency: 'intermediate' },
-      { name: 'Neovim', proficiency: 'intermediate' }
+      { name: 'Cursor', proficiency: 'advanced' },
+      { name: 'Warp', proficiency: 'advanced' },
+      { name: 'Codex CLI', proficiency: 'intermediate' },
+      { name: 'Claude Code', proficiency: 'advanced' },
+      { name: 'Antigravity IDE', proficiency: 'intermediate' },
+      { name: 'Android Studio', proficiency: 'intermediate' },
+      { name: 'Cloudflared Tunnels', proficiency: 'advanced' }
+    ],
+  },
+  {
+    id: 'aiml',
+    title: 'AI/ML',
+    icon: Brain,
+    color: '#FF6B6B',
+    skills: [
+      { name: 'Computer Vision', proficiency: 'advanced' },
+      { name: 'RAG Pipelines', proficiency: 'advanced' },
+      { name: 'LLM Inference', proficiency: 'advanced' },
+      { name: 'MCP Tooling', proficiency: 'advanced' },
+      { name: 'Ollama', proficiency: 'advanced' },
+      { name: 'n8n', proficiency: 'intermediate' },
+      { name: 'Docker MCP Catalog', proficiency: 'intermediate' },
+      { name: 'AWS Bedrock', proficiency: 'intermediate' }
     ],
   },
   {
     id: 'other',
     title: 'Technologies',
     icon: Cpu,
-    color: '#FF6B6B',
+    color: '#98D8C8',
     skills: [
       { name: 'REST APIs', proficiency: 'expert' },
-      { name: 'GraphQL', proficiency: 'intermediate' },
       { name: 'WebSockets', proficiency: 'advanced' },
-      { name: 'CSS/SCSS', proficiency: 'expert' },
-      { name: 'HTML5', proficiency: 'expert' },
-      { name: 'TailwindCSS', proficiency: 'expert' }
+      { name: 'TailwindCSS', proficiency: 'expert' },
+      { name: 'HTML5', proficiency: 'expert' }
     ],
   },
 ]
@@ -251,7 +270,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skillCategories = default
               <div className="text-secondary text-sm">Technologies</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-accent mb-2">5</div>
+              <div className="text-3xl font-bold text-accent mb-2">6</div>
               <div className="text-secondary text-sm">Categories</div>
             </div>
             <div className="text-center">
