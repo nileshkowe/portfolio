@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: "%s | Nilesh Kowe",
   },
   description:
-    "Portfolio of Nilesh Kowe — Software Developer at Pixonate with 1.6 years of experience building full-stack web applications and AI/ML solutions.",
+    "Portfolio of Nilesh Kowe — Software Developer at Pixonate with 1+ years of experience building full-stack web applications and AI/ML solutions.",
   metadataBase: new URL(siteUrl),
   openGraph: {
     type: "website",
