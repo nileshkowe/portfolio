@@ -34,7 +34,7 @@ const HeroSection: React.FC = () => {
 
   useEffect(() => {
     loggerModule.debug('HeroSection component mounted with Framer Motion')
-    const timer = setTimeout(() => setCount(50), 1000) // 50+ projects
+    const timer = setTimeout(() => setCount(25), 1000) // 25+ projects
     return () => clearTimeout(timer)
   }, [])
 
@@ -171,7 +171,7 @@ const HeroSection: React.FC = () => {
                 <div className="text-secondary">Projects Completed</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-accent">1.6+</div>
+                <div className="text-3xl font-bold text-accent">1+</div>
                 <div className="text-secondary">Years Experience</div>
               </div>
             </motion.div>
