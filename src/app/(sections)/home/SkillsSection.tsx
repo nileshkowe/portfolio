@@ -255,11 +255,11 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skillCategories = default
               <div className="text-secondary text-sm">Categories</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-white mb-2">3+</div>
+              <div className="text-3xl font-bold text-white mb-2">1+</div>
               <div className="text-secondary text-sm">Years Experience</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">50+</div>
+              <div className="text-3xl font-bold text-primary mb-2">25+</div>
               <div className="text-secondary text-sm">Projects Built</div>
             </div>
           </motion.div>

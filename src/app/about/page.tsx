@@ -95,7 +95,7 @@ const AboutPage: React.FC = () => {
   const funFacts = [
     { icon: Coffee, label: "Coffee Cups", value: "∞", description: "Daily fuel for coding" },
     { icon: Code, label: "Lines of Code", value: "100K+", description: "Written and counting" },
-    { icon: Award, label: "Projects", value: "50+", description: "Completed successfully" },
+    { icon: Award, label: "Projects", value: "25+", description: "Completed successfully" },
     { icon: Brain, label: "Technologies", value: "15+", description: "Mastered and learning" }
   ]
 
@@ -186,7 +186,7 @@ const AboutPage: React.FC = () => {
                   </div>
                   <div className="flex items-center gap-2 text-secondary">
                     <Calendar size={18} className="text-primary" />
-                    <span>1.6 Years Experience</span>
+                    <span>1+ Years Experience</span>
                   </div>
                 </div>
               </motion.div>
